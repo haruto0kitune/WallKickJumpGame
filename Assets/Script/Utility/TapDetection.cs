@@ -3,26 +3,35 @@ using UnityEngine.UI;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
+using System.Linq;
 
 public class TapDetection : MonoBehaviour
 {
     [SerializeField]
     Text text;
     public ReactiveProperty<bool> isButtonDown;
+    Touch touchStore;
+
+    void Awake()
+    {
+        isButtonDown = new ReactiveProperty<bool>();
+    }
 
     void Start()
     {
         this.UpdateAsObservable()
-            .Where(x => Input.GetMouseButton(0))
-            .Select(x => Camera.main.ScreenToWorldPoint(Input.mousePosition))
-            .Select(x => Physics2D.OverlapPoint(x))
-            .Where(x => x)
-            .Where(x => x.gameObject.tag == "LeftButton")
+            .SelectMany(x => Input.touches)
+            .Select(x => Tuple.Create<Collider2D, Touch>(Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(x.position)), x))
+            .Where(x => x.Item1)
+            .Where(x => x.Item1.gameObject.tag == tag)
+            .Do(x => touchStore = x.Item2)
             .Subscribe(_ => isButtonDown.Value = true);
 
-        isButtonDown = this.ObserveEveryValueChanged(x => Input.GetMouseButton(0))
-            .Where(x => !x)
-            .ToReactiveProperty();
+        this.UpdateAsObservable()
+            .Where(x => Input.touchCount > 0)
+            .Select(x => touchStore.phase == TouchPhase.Ended)
+            .Where(x => x)
+            .Subscribe(_ => isButtonDown.Value = !_);
 
         isButtonDown.SubscribeToText(text);
     }
