@@ -27,9 +27,9 @@ public class PlayerState : MonoBehaviour
     void Start()
     {
         isFacingRight = new ReactiveProperty<bool>(true);
-        canAirMove = new ReactiveProperty<bool>(true);
-        canTurn = new ReactiveProperty<bool>(true);
-        canWallKickJump = new ReactiveProperty<bool>();
+        canAirMove = this.ObserveEveryValueChanged(x => !isDamaged.Value).ToReactiveProperty(true);
+        canTurn = this.ObserveEveryValueChanged(x => !isDamaged.Value).ToReactiveProperty(true);
+        canWallKickJump = this.ObserveEveryValueChanged(x => !isDamaged.Value).ToReactiveProperty(); 
         isWallKickJumping = this.ObserveEveryValueChanged(x => animator.GetBool("isWallKickJumping")).ToReactiveProperty();
         isFalling = this.ObserveEveryValueChanged(x => animator.GetBool("isFalling")).ToReactiveProperty();
         isHookShooting = this.ObserveEveryValueChanged(x => animator.GetBool("isHookShooting")).ToReactiveProperty();
@@ -39,7 +39,5 @@ public class PlayerState : MonoBehaviour
         this.ObserveEveryValueChanged(x => _rigidbody2D.velocity.y)
             .Where(x => x < -1)
             .Subscribe(_ => _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, -1f));
-
-        isFacingRight.Subscribe(_ => Debug.Log("facingRight: " + _));
     }
 }

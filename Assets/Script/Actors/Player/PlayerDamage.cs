@@ -10,12 +10,16 @@ public class PlayerDamage : MonoBehaviour
     Animator animator;
     ObservableStateMachineTrigger observableStateMachineTrigger;
     Rigidbody2D _rigidbody2D;
+    [SerializeField]
+    GameObject buttonManager;
+    ButtonManager buttonManagerComponent;
 
     void Awake()
     {
         animator = player.GetComponent<Animator>();
         observableStateMachineTrigger = animator.GetBehaviour<ObservableStateMachineTrigger>();
         _rigidbody2D = player.GetComponent<Rigidbody2D>();
+        buttonManagerComponent = buttonManager.GetComponent<ButtonManager>();
     }
 
     void Start()

@@ -8,9 +8,13 @@ public class DebugInformation : MonoBehaviour
 {
     [SerializeField]
     Text text1;
+    [SerializeField]
+    Text text2;
+    
 
     void Start()
     {
-        FPSCounter.Current.SubscribeToText(text1); 
+        FPSCounter.Current.SubscribeToText(text1);
+        GameObject.Find("Player").GetComponent<PlayerState>().canAirMove.SubscribeToText(text2);
     }
 }

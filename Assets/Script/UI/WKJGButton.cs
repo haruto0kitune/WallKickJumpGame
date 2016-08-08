@@ -20,9 +20,6 @@ public class WKJGButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void Start()
     {
-        this.ObserveEveryValueChanged(x => isButtonDown.Value)
-            .Subscribe(_ => Debug.Log(debug + _));
-
         isButtonDown.SubscribeToText(text);
     }
 

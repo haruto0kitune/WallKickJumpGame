@@ -20,9 +20,6 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
-        this.OnTriggerEnter2DAsObservable()
-            .Where(x => x.gameObject.tag == "Player")
-            .Subscribe(_ => Debug.Log("trigger"));
         TriggerBox.OnTriggerEnter2DAsObservable()
             .Where(x => x.gameObject.tag == "Player")
             .Subscribe(_ =>

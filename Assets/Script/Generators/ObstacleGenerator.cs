@@ -15,7 +15,7 @@ public class ObstacleGenerator : MonoBehaviour
     void Start()
     {
         this.UpdateAsObservable()
-            .ThrottleFirstFrame(60)
+            .ThrottleFirstFrame(120)
             .Subscribe(_ => 
             {
                 var coordinateX = Random.Range(-0.54f, 0.54f);
