@@ -24,6 +24,8 @@ public class PlayerWallKickJump : MonoBehaviour
 
     Coroutine coroutineStore;
 
+    bool hasDamaged;
+
     void Awake()
     {
         animator = player.GetComponent<Animator>();
@@ -59,6 +61,16 @@ public class PlayerWallKickJump : MonoBehaviour
             });
         #endregion
         #region WallKickJump->Damage
+        observableStateMachineTrigger
+            .OnStateUpdateAsObservable()
+            .Where(x => x.StateInfo.IsName("Base Laeyr.WallKickJump"))
+            .Where(x => hasDamaged)
+            .Subscribe(_ =>
+            {
+                animator.SetBool("isWallKickJumping", false);
+                animator.SetBool("isDamaged", true);
+                hasDamaged = false;
+            });
         #endregion
         #region WallKickJump->HookShooting
         #endregion
@@ -88,6 +100,10 @@ public class PlayerWallKickJump : MonoBehaviour
         triggerBox.OnTriggerExit2DAsObservable()
             .Where(x => x.gameObject.tag == "Wall")
             .Subscribe(_ => playerState.canWallKickJump.Value = false);
+
+        hurtBox.OnTriggerEnter2DAsObservable()
+            .Where(x => x.gameObject.tag == "Obstacle")
+            .Subscribe(_ => hasDamaged = true);
     }
 
     IEnumerator WallKickJump()

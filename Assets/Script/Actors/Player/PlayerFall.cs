@@ -17,6 +17,7 @@ public class PlayerFall : MonoBehaviour
     [SerializeField]
     GameObject buttonManager;
     ButtonManager buttonManagerComponent;
+    bool hasDamaged;
 
     void Awake()
     {
@@ -44,6 +45,16 @@ public class PlayerFall : MonoBehaviour
             });
         #endregion
         #region Fall->Damage
+        observableStateMachineTrigger
+            .OnStateUpdateAsObservable()
+            .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
+            .Where(x => hasDamaged)
+            .Subscribe(_ =>
+            {
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isDamaged", true);
+                hasDamaged = false;
+            });
         #endregion
         #region Fall->HookShot
         #endregion
@@ -64,5 +75,10 @@ public class PlayerFall : MonoBehaviour
                 boxCollider2D.enabled = false;
                 hurtBox.enabled = false;
             });
+
+        // Trigger
+        hurtBox.OnTriggerEnter2DAsObservable()
+            .Where(x => x.gameObject.tag == "Obstacle")
+            .Subscribe(_ => hasDamaged = true);
     }
 }

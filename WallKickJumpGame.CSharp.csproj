@@ -84,11 +84,14 @@
     <Compile Include="Assets\LINQtoGameObject\Scripts\GameObjectExtensions.Operate.cs" />
     <Compile Include="Assets\LINQtoGameObject\Scripts\GameObjectExtensions.Traverse.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerAirMove.cs" />
+    <Compile Include="Assets\Script\Actors\Player\PlayerDamage.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerFall.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerState.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerTurn.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerWallKickJump.cs" />
     <Compile Include="Assets\Script\Cameras\MainCamera.cs" />
+    <Compile Include="Assets\Script\Generators\MapGenerator.cs" />
+    <Compile Include="Assets\Script\Generators\ObstacleGenerator.cs" />
     <Compile Include="Assets\Script\Managers\ButtonManager.cs" />
     <Compile Include="Assets\Script\UI\WKJGButton.cs" />
     <Compile Include="Assets\Script\Utility\Debug\DebugInformation.cs" />
