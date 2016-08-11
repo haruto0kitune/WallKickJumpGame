@@ -3020,6 +3020,21 @@ Prefab:
       propertyPath: text
       value: 
       objectReference: {fileID: 919015381}
+    - target: {fileID: 114000012291603882, guid: bae4e4156cdea9a4ca173caaa5acd692,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2112398058}
+    - target: {fileID: 114000012291603882, guid: bae4e4156cdea9a4ca173caaa5acd692,
+        type: 2}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 919015381}
+    - target: {fileID: 114000012291603882, guid: bae4e4156cdea9a4ca173caaa5acd692,
+        type: 2}
+      propertyPath: meterText
+      value: 
+      objectReference: {fileID: 1151713750}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bae4e4156cdea9a4ca173caaa5acd692, type: 2}
   m_IsPrefabParent: 0
