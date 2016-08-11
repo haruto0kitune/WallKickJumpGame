@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
 
     void Awake()
     {
+        scoreManager = GameObject.Find("ScoreManager");
         scoreManagerComponent = scoreManager.GetComponent<ScoreManager>();
     }
 
