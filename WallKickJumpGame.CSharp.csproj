@@ -93,6 +93,8 @@
     <Compile Include="Assets\Script\Generators\MapGenerator.cs" />
     <Compile Include="Assets\Script\Generators\ObstacleGenerator.cs" />
     <Compile Include="Assets\Script\Managers\ButtonManager.cs" />
+    <Compile Include="Assets\Script\Managers\ScoreManager.cs" />
+    <Compile Include="Assets\Script\Objects\Item.cs" />
     <Compile Include="Assets\Script\Objects\Obstacle.cs" />
     <Compile Include="Assets\Script\UI\WKJGButton.cs" />
     <Compile Include="Assets\Script\Utility\Debug\DebugInformation.cs" />
