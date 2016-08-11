@@ -17,7 +17,7 @@ public class PlayerState : MonoBehaviour
     public ReactiveProperty<bool> isHookShooting;
     public ReactiveProperty<bool> canHookShoot;
     public ReactiveProperty<bool> isDamaged;
-    public ReactiveProperty<bool> canStick;
+    public ReactiveProperty<bool> isTouchingWall;
     public ReactiveProperty<bool> isSticking;
 
     void Awake()
@@ -29,14 +29,14 @@ public class PlayerState : MonoBehaviour
     void Start()
     {
         isFacingRight = new ReactiveProperty<bool>(true);
-        canAirMove = this.ObserveEveryValueChanged(x => !isDamaged.Value).ToReactiveProperty(true);
-        canTurn = this.ObserveEveryValueChanged(x => !isDamaged.Value).ToReactiveProperty(true);
+        canAirMove = this.ObserveEveryValueChanged(x => !isDamaged.Value && !isSticking.Value && !isWallKickJumping.Value).ToReactiveProperty(true);
+        canTurn = this.ObserveEveryValueChanged(x => !isDamaged.Value && !isWallKickJumping.Value).ToReactiveProperty(true);
         canWallKickJump = this.ObserveEveryValueChanged(x => !isDamaged.Value).ToReactiveProperty(); 
         isWallKickJumping = this.ObserveEveryValueChanged(x => animator.GetBool("isWallKickJumping")).ToReactiveProperty();
         isFalling = this.ObserveEveryValueChanged(x => animator.GetBool("isFalling")).ToReactiveProperty();
         isHookShooting = this.ObserveEveryValueChanged(x => animator.GetBool("isHookShooting")).ToReactiveProperty();
         isDamaged = this.ObserveEveryValueChanged(x => animator.GetBool("isDamaged")).ToReactiveProperty();
-        canStick = new ReactiveProperty<bool>();
+        isTouchingWall = new ReactiveProperty<bool>();
         isSticking = this.ObserveEveryValueChanged(x => animator.GetBool("isSticking")).ToReactiveProperty();
 
         // Fall velocity limit

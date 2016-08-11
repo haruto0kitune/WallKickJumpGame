@@ -29,7 +29,7 @@ public class PlayerStick : MonoBehaviour
         animator = player.GetComponent<Animator>();
         observableStateMachineTrigger = animator.GetBehaviour<ObservableStateMachineTrigger>();
         _rigidbody2D = player.GetComponent<Rigidbody2D>();
-        boxCollider2D = player.GetComponent<BoxCollider2D>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
         playerState = player.GetComponent<PlayerState>();
         buttonManagerComponent = buttonManager.GetComponent<ButtonManager>();
         hurtBox = stickHurtBox.GetComponent<BoxCollider2D>();
@@ -85,6 +85,7 @@ public class PlayerStick : MonoBehaviour
                 animator.SetBool("isSticking", false);
                 animator.SetBool("isFalling", true);
                 _rigidbody2D.gravityScale = 1f;
+                //TurnOnSticking();
             });
         #endregion
 
@@ -95,11 +96,13 @@ public class PlayerStick : MonoBehaviour
 
         triggerBox.OnTriggerEnter2DAsObservable()
             .Where(x => x.gameObject.tag == "Wall")
-            .Subscribe(_ => playerState.canStick.Value = true);
+            .Do(x => Debug.Log("Stick:OnTriggerEnter"))
+            .Subscribe(_ => playerState.isTouchingWall.Value = true);
 
         triggerBox.OnTriggerExit2DAsObservable()
             .Where(x => x.gameObject.tag == "Wall")
-            .Subscribe(_ => playerState.canStick.Value = false);
+            .Do(x => Debug.Log("Stick:OnTriggerExit"))
+            .Subscribe(_ => playerState.isTouchingWall.Value = false);
 
         // Collision
         this.ObserveEveryValueChanged(x => animator.GetBool("isSticking"))

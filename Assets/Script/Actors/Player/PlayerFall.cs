@@ -62,7 +62,7 @@ public class PlayerFall : MonoBehaviour
         observableStateMachineTrigger
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
-            .Where(x => playerState.canStick.Value)
+            .Where(x => playerState.isTouchingWall.Value)
             .Subscribe(_ =>
             {
                 animator.SetBool("isFalling", false);

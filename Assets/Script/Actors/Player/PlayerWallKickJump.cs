@@ -107,7 +107,7 @@ public class PlayerWallKickJump : MonoBehaviour
             .Subscribe(_ =>
             {
                 hasDamaged = true;
-                StopCoroutine(WallKickJump());
+                Cancel();
             });
     }
 
@@ -134,7 +134,8 @@ public class PlayerWallKickJump : MonoBehaviour
 
         if (playerState.isFacingRight.Value)
         {
-            var velocity = Utility.PolarToRectangular2D(60, 4f);
+            var velocity = Utility.PolarToRectangular2D(120, 4f);
+            velocity = new Vector2(velocity.x * -1, velocity.y);
             _rigidbody2D.velocity = velocity;
         }
         else
@@ -143,17 +144,15 @@ public class PlayerWallKickJump : MonoBehaviour
             _rigidbody2D.velocity = velocity;
         }
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 8; i++)
         {
             yield return null;
         }
-
-        playerState.canAirMove.Value = true;
     }
 
     void Cancel()
     {
         StopCoroutine(coroutineStore);
-        playerState.canAirMove.Value = true;
+        playerState.canAirMove.Value = false;
     }
 }
