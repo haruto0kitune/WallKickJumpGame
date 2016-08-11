@@ -17,6 +17,8 @@ public class PlayerState : MonoBehaviour
     public ReactiveProperty<bool> isHookShooting;
     public ReactiveProperty<bool> canHookShoot;
     public ReactiveProperty<bool> isDamaged;
+    public ReactiveProperty<bool> canStick;
+    public ReactiveProperty<bool> isSticking;
 
     void Awake()
     {
@@ -34,6 +36,8 @@ public class PlayerState : MonoBehaviour
         isFalling = this.ObserveEveryValueChanged(x => animator.GetBool("isFalling")).ToReactiveProperty();
         isHookShooting = this.ObserveEveryValueChanged(x => animator.GetBool("isHookShooting")).ToReactiveProperty();
         isDamaged = this.ObserveEveryValueChanged(x => animator.GetBool("isDamaged")).ToReactiveProperty();
+        canStick = new ReactiveProperty<bool>();
+        isSticking = this.ObserveEveryValueChanged(x => animator.GetBool("isSticking")).ToReactiveProperty();
 
         // Fall velocity limit
         this.ObserveEveryValueChanged(x => _rigidbody2D.velocity.y)

@@ -63,10 +63,11 @@ public class PlayerWallKickJump : MonoBehaviour
         #region WallKickJump->Damage
         observableStateMachineTrigger
             .OnStateUpdateAsObservable()
-            .Where(x => x.StateInfo.IsName("Base Laeyr.WallKickJump"))
+            .Where(x => x.StateInfo.IsName("Base Layer.WallKickJump"))
             .Where(x => hasDamaged)
             .Subscribe(_ =>
             {
+                Debug.Log("Damaged");
                 animator.SetBool("isWallKickJumping", false);
                 animator.SetBool("isDamaged", true);
                 hasDamaged = false;
@@ -103,7 +104,11 @@ public class PlayerWallKickJump : MonoBehaviour
 
         hurtBox.OnTriggerEnter2DAsObservable()
             .Where(x => x.gameObject.tag == "Obstacle")
-            .Subscribe(_ => hasDamaged = true);
+            .Subscribe(_ =>
+            {
+                hasDamaged = true;
+                StopCoroutine(WallKickJump());
+            });
     }
 
     IEnumerator WallKickJump()
@@ -130,14 +135,11 @@ public class PlayerWallKickJump : MonoBehaviour
         if (playerState.isFacingRight.Value)
         {
             var velocity = Utility.PolarToRectangular2D(60, 4f);
-            //velocity.x *= -1;
-            Debug.Log(velocity);
             _rigidbody2D.velocity = velocity;
         }
         else
         {
             var velocity = Utility.PolarToRectangular2D(120, 4f);
-            Debug.Log(velocity);
             _rigidbody2D.velocity = velocity;
         }
 
