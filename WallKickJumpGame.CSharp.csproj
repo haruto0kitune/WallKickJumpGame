@@ -100,6 +100,7 @@
     <Compile Include="Assets\Script\Managers\ScoreManager.cs" />
     <Compile Include="Assets\Script\Objects\Item.cs" />
     <Compile Include="Assets\Script\Objects\Obstacle.cs" />
+    <Compile Include="Assets\Script\Objects\thorn.cs" />
     <Compile Include="Assets\Script\UI\RestartButton.cs" />
     <Compile Include="Assets\Script\UI\StartButton.cs" />
     <Compile Include="Assets\Script\UI\WKJGButton.cs" />
