@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class Utility
 {
@@ -65,5 +66,40 @@ public static class Utility
 
             prev = x;
         }
+    }
+
+    public static List<float> Ease(float startPoint, float endPoint, int t, int maxTime)
+    {
+        var distance = endPoint - startPoint;
+        var midpoint = (distance / 2) + startPoint;
+
+        var easeOut = EaseOut(startPoint, midpoint, t, maxTime);
+        var easeIn = EaseIn(midpoint, endPoint, t, maxTime);
+
+        return easeOut.Concat(easeIn).ToList();
+    }
+
+    public static List<float> EaseOut(float startPoint, float endPoint, int t, int maxTime)
+    {
+        var list = new List<float>();
+
+        for (int i = t; i < maxTime; i++)
+        {
+            list.Add(startPoint + (endPoint - startPoint) * ((i + 1) * i / 2.0f) / ((maxTime + 1) * maxTime / 2.0f));
+        }
+
+        return list; 
+    }
+
+    public static List<float> EaseIn(float startPoint, float endPoint, int t, int maxTime)
+    {
+        var list = new List<float>();
+
+        for (int i = t; i < maxTime; i++)
+        {
+            list.Add(startPoint + (endPoint - startPoint) * ((maxTime * 2 - i + 1) * i / 2.0f) / ((maxTime + 1) * maxTime / 2.0f));
+        }
+
+        return list;
     }
 }

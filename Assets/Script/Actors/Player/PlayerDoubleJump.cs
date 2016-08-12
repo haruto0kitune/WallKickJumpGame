@@ -92,7 +92,7 @@ public class PlayerDoubleJump : MonoBehaviour
 
         // Trigger
         hurtBox.OnTriggerEnter2DAsObservable()
-            .Where(x => x.gameObject.tag == "Obstacle")
+            .Where(x => x.gameObject.tag == "Obstacle" || x.gameObject.tag == "Enemy")
             .Subscribe(_ =>
             {
                 hasDamaged = true;

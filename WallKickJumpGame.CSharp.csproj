@@ -83,6 +83,7 @@
     <Compile Include="Assets\LINQtoGameObject\Scripts\GameObjectExtensions.Enumerable.cs" />
     <Compile Include="Assets\LINQtoGameObject\Scripts\GameObjectExtensions.Operate.cs" />
     <Compile Include="Assets\LINQtoGameObject\Scripts\GameObjectExtensions.Traverse.cs" />
+    <Compile Include="Assets\Script\Actors\Enemies\Enemy1.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerAirMove.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerDamage.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerDoubleJump.cs" />
