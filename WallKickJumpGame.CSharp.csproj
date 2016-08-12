@@ -101,6 +101,7 @@
     <Compile Include="Assets\Script\Objects\Item.cs" />
     <Compile Include="Assets\Script\Objects\Obstacle.cs" />
     <Compile Include="Assets\Script\UI\RestartButton.cs" />
+    <Compile Include="Assets\Script\UI\StartButton.cs" />
     <Compile Include="Assets\Script\UI\WKJGButton.cs" />
     <Compile Include="Assets\Script\Utility\Debug\DebugInformation.cs" />
     <Compile Include="Assets\Script\Utility\FPSCounter.cs" />
