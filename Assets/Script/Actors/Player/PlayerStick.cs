@@ -47,6 +47,7 @@ public class PlayerStick : MonoBehaviour
             {
                 _rigidbody2D.velocity = Vector2.zero;
                 _rigidbody2D.gravityScale = 0f;
+                playerState.canDoubleJump.Value = true;
             });
         #endregion
         #region Stick->WallKickJump
@@ -54,7 +55,7 @@ public class PlayerStick : MonoBehaviour
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Stick"))
             .Where(x => playerState.canWallKickJump.Value)
-            .Where(x => buttonManagerComponent.isJumpButtonDown.Value)
+            .Where(x => Input.touchCount > 0)
             .Subscribe(_ =>
             {
                 animator.SetBool("isSticking", false);
@@ -75,19 +76,19 @@ public class PlayerStick : MonoBehaviour
                 hasDamaged = false;
             });
         #endregion
-        #region Stick->Fall
-        observableStateMachineTrigger
-            .OnStateUpdateAsObservable()
-            .Where(x => x.StateInfo.IsName("Base Layer.Stick"))
-            .Where(x => (playerState.isFacingRight.Value && buttonManagerComponent.isLeftButtonDown.Value) || (!playerState.isFacingRight.Value && buttonManagerComponent.isRightButtonDown.Value))
-            .Subscribe(_ =>
-            {
-                animator.SetBool("isSticking", false);
-                animator.SetBool("isFalling", true);
-                _rigidbody2D.gravityScale = 1f;
-                //TurnOnSticking();
-            });
-        #endregion
+        //#region Stick->Fall
+        //observableStateMachineTrigger
+        //    .OnStateUpdateAsObservable()
+        //    .Where(x => x.StateInfo.IsName("Base Layer.Stick"))
+        //    //.Where(x => (playerState.isFacingRight.Value && buttonManagerComponent.isLeftButtonDown.Value) || (!playerState.isFacingRight.Value && buttonManagerComponent.isRightButtonDown.Value))
+        //    .Subscribe(_ =>
+        //    {
+        //        animator.SetBool("isSticking", false);
+        //        animator.SetBool("isFalling", true);
+        //        _rigidbody2D.gravityScale = 1f;
+        //        //TurnOnSticking();
+        //    });
+        //#endregion
 
         // Trigger
         hurtBox.OnTriggerEnter2DAsObservable()
@@ -96,12 +97,10 @@ public class PlayerStick : MonoBehaviour
 
         triggerBox.OnTriggerEnter2DAsObservable()
             .Where(x => x.gameObject.tag == "Wall")
-            .Do(x => Debug.Log("Stick:OnTriggerEnter"))
             .Subscribe(_ => playerState.isTouchingWall.Value = true);
 
         triggerBox.OnTriggerExit2DAsObservable()
             .Where(x => x.gameObject.tag == "Wall")
-            .Do(x => Debug.Log("Stick:OnTriggerExit"))
             .Subscribe(_ => playerState.isTouchingWall.Value = false);
 
         // Collision

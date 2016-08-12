@@ -19,6 +19,8 @@ public class PlayerState : MonoBehaviour
     public ReactiveProperty<bool> isDamaged;
     public ReactiveProperty<bool> isTouchingWall;
     public ReactiveProperty<bool> isSticking;
+    public ReactiveProperty<bool> canDoubleJump;
+    public ReactiveProperty<bool> isDoubleJumping;
 
     void Awake()
     {
@@ -38,10 +40,12 @@ public class PlayerState : MonoBehaviour
         isDamaged = this.ObserveEveryValueChanged(x => animator.GetBool("isDamaged")).ToReactiveProperty();
         isTouchingWall = new ReactiveProperty<bool>();
         isSticking = this.ObserveEveryValueChanged(x => animator.GetBool("isSticking")).ToReactiveProperty();
+        canDoubleJump = new ReactiveProperty<bool>();
+        isDoubleJumping = this.ObserveEveryValueChanged(x => animator.GetBool("isDoubleJumping")).ToReactiveProperty();
 
         // Fall velocity limit
-        this.ObserveEveryValueChanged(x => _rigidbody2D.velocity.y)
-            .Where(x => x < -1)
-            .Subscribe(_ => _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, -1f));
+        //this.ObserveEveryValueChanged(x => _rigidbody2D.velocity.y)
+        //    .Where(x => x < -1)
+        //    .Subscribe(_ => _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, -1f));
     }
 }

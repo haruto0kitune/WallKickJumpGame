@@ -37,7 +37,8 @@ public class PlayerFall : MonoBehaviour
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
             .Where(x => playerState.canWallKickJump.Value)
-            .Where(x => buttonManagerComponent.isJumpButtonDown.Value)
+            //.Where(x => buttonManagerComponent.isJumpButtonDown.Value)
+            .Where(x => Input.GetMouseButtonDown(0))
             .Subscribe(_ =>
             {
                 animator.SetBool("isFalling", false);
@@ -67,6 +68,19 @@ public class PlayerFall : MonoBehaviour
             {
                 animator.SetBool("isFalling", false);
                 animator.SetBool("isSticking", true);
+            });
+        #endregion
+        #region Fall->DoubleJump
+        observableStateMachineTrigger
+            .OnStateUpdateAsObservable()
+            .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
+            .Where(x => playerState.canDoubleJump.Value)
+            .Where(x => Input.touchCount > 0)
+            .Subscribe(_ =>
+            {
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isDoubleJumping", true);
+                playerState.canDoubleJump.Value = false;
             });
         #endregion
 

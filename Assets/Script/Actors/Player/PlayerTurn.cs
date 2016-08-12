@@ -30,10 +30,10 @@ namespace WallKickJumpGame.Actors.Player.Basics
 
         void Start()
         {
-            this.FixedUpdateAsObservable()
-                .Where(x => PlayerState.canTurn.Value)
-                .Where(x => (buttonManagerComponent.isRightButtonDown.Value & !(PlayerState.isFacingRight.Value)) | (buttonManagerComponent.isLeftButtonDown.Value & PlayerState.isFacingRight.Value))
-                .Subscribe(_ => this.Turn());
+            //this.FixedUpdateAsObservable()
+                //.Where(x => PlayerState.canTurn.Value)
+                //.Where(x => (buttonManagerComponent.isRightButtonDown.Value & !(PlayerState.isFacingRight.Value)) | (buttonManagerComponent.isLeftButtonDown.Value & PlayerState.isFacingRight.Value))
+                //.Subscribe(_ => this.Turn());
         }
 
         public void Turn()

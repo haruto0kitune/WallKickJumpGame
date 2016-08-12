@@ -73,7 +73,19 @@ public class PlayerWallKickJump : MonoBehaviour
                 hasDamaged = false;
             });
         #endregion
-        #region WallKickJump->HookShooting
+        #region WallKickJump->DoubleJump
+        observableStateMachineTrigger
+            .OnStateUpdateAsObservable()
+            .Where(x => x.StateInfo.IsName("Base Layer.WallKickJump"))
+            .Where(x => playerState.canDoubleJump.Value)
+            .Where(x => Input.GetMouseButtonDown(0))
+            .Do(x => Debug.Log(Input.touchCount))
+            .Subscribe(_ =>
+            {
+                animator.SetBool("isWallKickJumping", false);
+                animator.SetBool("isDoubleJumping", true);
+                playerState.canDoubleJump.Value = false;
+            });
         #endregion
 
         // Collision
@@ -113,7 +125,7 @@ public class PlayerWallKickJump : MonoBehaviour
 
     IEnumerator WallKickJump()
     {
-
+        Debug.Log("WallkickJump");
         playerState.isFacingRight.Value = !playerState.isFacingRight.Value;
 
         // Turn Sprite
