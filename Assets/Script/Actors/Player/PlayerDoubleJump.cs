@@ -9,6 +9,7 @@ public class PlayerDoubleJump : MonoBehaviour
     GameObject player;
     Animator animator;
     ObservableStateMachineTrigger observableStateMachineTrigger;
+    AudioSource audioSource;
     PlayerState playerState;
     Rigidbody2D _rigidbody2D;
     BoxCollider2D boxCollider2D;
@@ -23,6 +24,7 @@ public class PlayerDoubleJump : MonoBehaviour
     {
         animator = player.GetComponent<Animator>();
         observableStateMachineTrigger = animator.GetBehaviour<ObservableStateMachineTrigger>();
+        audioSource = GetComponent<AudioSource>();
         playerState = player.GetComponent<PlayerState>();
         _rigidbody2D = player.GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
@@ -36,7 +38,11 @@ public class PlayerDoubleJump : MonoBehaviour
         observableStateMachineTrigger
             .OnStateEnterAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.DoubleJump"))
-            .Subscribe(_ => coroutineStore = StartCoroutine(DoubleJump()));
+            .Subscribe(_ =>
+            {
+                coroutineStore = StartCoroutine(DoubleJump());
+                audioSource.PlayOneShot(audioSource.clip);
+            });
         #endregion
         #region DoubleJump->Fall
         observableStateMachineTrigger

@@ -5,6 +5,9 @@ using UniRx.Triggers;
 
 public class PlayerState : MonoBehaviour
 {
+    [SerializeField]
+    GameObject groundCheck;
+    public LayerMask layerMask;
     Rigidbody2D _rigidbody2D;
     Animator animator;
 
@@ -21,6 +24,7 @@ public class PlayerState : MonoBehaviour
     public ReactiveProperty<bool> isSticking;
     public ReactiveProperty<bool> canDoubleJump;
     public ReactiveProperty<bool> isDoubleJumping;
+    public ReactiveProperty<bool> isGrounded;
 
     void Awake()
     {
@@ -42,7 +46,9 @@ public class PlayerState : MonoBehaviour
         isSticking = this.ObserveEveryValueChanged(x => animator.GetBool("isSticking")).ToReactiveProperty();
         canDoubleJump = new ReactiveProperty<bool>();
         isDoubleJumping = this.ObserveEveryValueChanged(x => animator.GetBool("isDoubleJumping")).ToReactiveProperty();
+        isGrounded = this.ObserveEveryValueChanged(x => (bool)Physics2D.Linecast(transform.position, groundCheck.transform.position, layerMask)).ToReactiveProperty();
 
+        isGrounded.Subscribe(_ => Debug.Log(_));
         // Fall velocity limit
         //this.ObserveEveryValueChanged(x => _rigidbody2D.velocity.y)
         //    .Where(x => x < -1)

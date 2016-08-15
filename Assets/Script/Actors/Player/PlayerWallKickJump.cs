@@ -9,6 +9,7 @@ public class PlayerWallKickJump : MonoBehaviour
     GameObject player;
     Animator animator;
     ObservableStateMachineTrigger observableStateMachineTrigger;
+    AudioSource audioSource;
     SpriteRenderer spriteRenderer;
     BoxCollider2D[] boxCollider2Ds;
     CircleCollider2D[] circleCollider2Ds;
@@ -30,6 +31,7 @@ public class PlayerWallKickJump : MonoBehaviour
     {
         animator = player.GetComponent<Animator>();
         observableStateMachineTrigger = animator.GetBehaviour<ObservableStateMachineTrigger>();
+        audioSource = GetComponent<AudioSource>();
         spriteRenderer = player.GetComponent<SpriteRenderer>();
         boxCollider2Ds = player.GetComponentsInChildren<BoxCollider2D>();
         circleCollider2Ds = player.GetComponentsInChildren<CircleCollider2D>();
@@ -47,7 +49,11 @@ public class PlayerWallKickJump : MonoBehaviour
         observableStateMachineTrigger
             .OnStateEnterAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.WallKickJump"))
-            .Subscribe(_ => coroutineStore = StartCoroutine(WallKickJump()));
+            .Subscribe(_ =>
+            {
+                coroutineStore = StartCoroutine(WallKickJump());
+                audioSource.PlayOneShot(audioSource.clip);
+            });
         #endregion
         #region WallKickJump->Fall
         observableStateMachineTrigger

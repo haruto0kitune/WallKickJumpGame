@@ -8,11 +8,15 @@ public class Item : MonoBehaviour
     [SerializeField]
     GameObject scoreManager;
     ScoreManager scoreManagerComponent;
+    AudioSource audioSource;
+
+    bool mustDestroy;
 
     void Awake()
     {
         scoreManager = GameObject.Find("ScoreManager");
         scoreManagerComponent = scoreManager.GetComponent<ScoreManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -22,7 +26,13 @@ public class Item : MonoBehaviour
             .Subscribe(_ =>
             {
                 scoreManagerComponent.score.Value++;
-                Destroy(this.gameObject);
-            }).AddTo(this.gameObject); 
+                audioSource.PlayOneShot(audioSource.clip);
+                mustDestroy = true; 
+            }).AddTo(this.gameObject);
+
+        this.ObserveEveryValueChanged(x => mustDestroy)
+            .Where(x => x)
+            .DelayFrame(2)
+            .Subscribe(_ => Destroy(this.gameObject));
     }
 }

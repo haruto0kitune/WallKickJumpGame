@@ -88,10 +88,12 @@
     <Compile Include="Assets\Script\Actors\Player\PlayerDamage.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerDoubleJump.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerFall.cs" />
+    <Compile Include="Assets\Script\Actors\Player\PlayerStand.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerState.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerStick.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerTurn.cs" />
     <Compile Include="Assets\Script\Actors\Player\PlayerWallKickJump.cs" />
+    <Compile Include="Assets\Script\Background\BackgroundOfResult.cs" />
     <Compile Include="Assets\Script\Cameras\MainCamera.cs" />
     <Compile Include="Assets\Script\Generators\ItemGenerator.cs" />
     <Compile Include="Assets\Script\Generators\MapGenerator.cs" />
@@ -100,7 +102,9 @@
     <Compile Include="Assets\Script\Managers\GameManager.cs" />
     <Compile Include="Assets\Script\Managers\ResultManager.cs" />
     <Compile Include="Assets\Script\Managers\ScoreManager.cs" />
+    <Compile Include="Assets\Script\Objects\Block.cs" />
     <Compile Include="Assets\Script\Objects\Item.cs" />
+    <Compile Include="Assets\Script\Objects\MovingBlock.cs" />
     <Compile Include="Assets\Script\Objects\Obstacle.cs" />
     <Compile Include="Assets\Script\Objects\thorn.cs" />
     <Compile Include="Assets\Script\UI\RestartButton.cs" />

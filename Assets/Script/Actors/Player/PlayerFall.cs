@@ -83,6 +83,17 @@ public class PlayerFall : MonoBehaviour
                 playerState.canDoubleJump.Value = false;
             });
         #endregion
+        #region Fall->Stand
+        observableStateMachineTrigger
+            .OnStateUpdateAsObservable()
+            .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
+            .Where(x => playerState.isGrounded.Value)
+            .Subscribe(_ =>
+            {
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isStanding", true);
+            });
+        #endregion
 
         // Collision
         this.ObserveEveryValueChanged(x => animator.GetBool("isFalling"))
