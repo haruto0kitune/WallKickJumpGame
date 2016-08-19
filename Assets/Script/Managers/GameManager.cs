@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
             .Where(x => x)
             .Subscribe(_ =>
             {
-                SceneManager.LoadScene(1);
-                SceneManager.UnloadScene(0);
+                SceneManager.LoadScene("result");
+                SceneManager.UnloadScene("test");
             });
     }
 }

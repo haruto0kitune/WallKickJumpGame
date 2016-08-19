@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UniRx;
 using UniRx.Triggers;
+using NCMB;
 
 public class ScoreManager : MonoBehaviour
 {

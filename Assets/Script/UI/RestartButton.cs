@@ -15,6 +15,12 @@ public class RestartButton : MonoBehaviour
     public void Restart()
     {
         audioSource.PlayOneShot(audioSource.clip);
-        SceneManager.LoadScene(0);
+        _Restart();
+    }
+
+    void _Restart()
+    {
+        SceneManager.LoadScene("test");
+        SceneManager.UnloadScene("result");
     }
 }

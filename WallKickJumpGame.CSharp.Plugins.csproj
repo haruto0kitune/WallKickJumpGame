@@ -307,6 +307,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LINQtoGameObject\README.txt" />
+    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\res\values\version.xml" />
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
     <None Include="Assets\codeandweb.com\Readme.txt" />
   </ItemGroup>
