@@ -11,6 +11,7 @@ public class PlayerStand : MonoBehaviour
     ObservableStateMachineTrigger observableStateMachineTrigger;
     Rigidbody2D _rigidbody2d;
     BoxCollider2D boxCollider2d;
+    PlayerState playerState;
     [SerializeField]
     GameObject standHurtBox;
     BoxCollider2D hurtBox;
@@ -23,6 +24,7 @@ public class PlayerStand : MonoBehaviour
         observableStateMachineTrigger = animator.GetBehaviour<ObservableStateMachineTrigger>();
         _rigidbody2d = player.GetComponent<Rigidbody2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
+        playerState = player.GetComponent<PlayerState>();
         hurtBox = standHurtBox.GetComponent<BoxCollider2D>();
     }
 
@@ -33,7 +35,11 @@ public class PlayerStand : MonoBehaviour
         observableStateMachineTrigger
             .OnStateEnterAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Stand"))
-            .Subscribe(_ => _rigidbody2d.velocity = Vector2.zero);
+            .Subscribe(_ =>
+            {
+                _rigidbody2d.velocity = Vector2.zero;
+                playerState.canDoubleJump.Value = true;
+            });
         #endregion
         #region Stand->WallKickJump
         observableStateMachineTrigger

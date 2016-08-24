@@ -9,8 +9,8 @@ using NCMB;
 public class StartButton : MonoBehaviour
 {
     AudioSource audioSource;
-    [SerializeField]
-    Text uuid;
+    //[SerializeField]
+    //Text uuid;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class StartButton : MonoBehaviour
             meterRanking.SaveAsync();
         }
 
-        this.UpdateAsObservable().Select(x => PlayerPrefs.GetString("uuid")).SubscribeToText(uuid);
+        //this.UpdateAsObservable().Select(x => PlayerPrefs.GetString("uuid")).SubscribeToText(uuid);
     }
 
     public void GameStart()

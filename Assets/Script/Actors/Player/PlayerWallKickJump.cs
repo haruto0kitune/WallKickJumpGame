@@ -51,6 +51,7 @@ public class PlayerWallKickJump : MonoBehaviour
             .Where(x => x.StateInfo.IsName("Base Layer.WallKickJump"))
             .Subscribe(_ =>
             {
+                Debug.Log("canDoubleJump: " + playerState.canDoubleJump.Value);
                 coroutineStore = StartCoroutine(WallKickJump());
                 audioSource.PlayOneShot(audioSource.clip);
             });
