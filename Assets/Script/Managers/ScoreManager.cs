@@ -12,12 +12,13 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField]
     GameObject player;
-    [SerializeField]
-    Text scoreText;
-    [SerializeField]
-    Text meterText;
-    public ReactiveProperty<int> score;
-    public ReactiveProperty<float> meter;
+    public Text scoreText;
+    public Text meterText;
+    public static ReactiveProperty<int> score;
+    public static ReactiveProperty<float> meter;
+    public static float meterStore;
+
+    private static bool hasInitialized;
 
     void Awake()
     {
@@ -32,17 +33,28 @@ public class ScoreManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         // Initialize
-        score = new ReactiveProperty<int>();
-        meter = new ReactiveProperty<float>();
+        if(!hasInitialized)
+        {
+            score = new ReactiveProperty<int>();
+            meter = new ReactiveProperty<float>();
+            hasInitialized = true;
+        }
     }
 
     void Start()
     {
         this.UpdateAsObservable()
-            .Where(x => player.transform.position.y > meter.Value)
-            .Subscribe(_ => meter.Value = player.transform.position.y);
+            .Where(x => player.transform.position.y > meter.Value - meterStore)
+            .Subscribe(_ => meter.Value = player.transform.position.y + meterStore);
 
         score.SubscribeToText(scoreText);
         meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterText);
+    }
+
+    public void Reset(int score = 0, float meter = 0f)
+    {
+        ScoreManager.meterStore = meter;
+        ScoreManager.score = new ReactiveProperty<int>(score);
+        ScoreManager.meter = new ReactiveProperty<float>(meter);
     }
 }

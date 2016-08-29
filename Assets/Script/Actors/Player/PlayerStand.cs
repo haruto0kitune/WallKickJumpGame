@@ -11,6 +11,7 @@ public class PlayerStand : MonoBehaviour
     ObservableStateMachineTrigger observableStateMachineTrigger;
     Rigidbody2D _rigidbody2d;
     BoxCollider2D boxCollider2d;
+    CircleCollider2D circleCollder2d;
     PlayerState playerState;
     [SerializeField]
     GameObject standHurtBox;
@@ -24,6 +25,7 @@ public class PlayerStand : MonoBehaviour
         observableStateMachineTrigger = animator.GetBehaviour<ObservableStateMachineTrigger>();
         _rigidbody2d = player.GetComponent<Rigidbody2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
+        circleCollder2d = GetComponent<CircleCollider2D>();
         playerState = player.GetComponent<PlayerState>();
         hurtBox = standHurtBox.GetComponent<BoxCollider2D>();
     }
@@ -71,6 +73,7 @@ public class PlayerStand : MonoBehaviour
             .Subscribe(_ =>
             {
                 boxCollider2d.enabled = true;
+                circleCollder2d.enabled = true;
                 hurtBox.enabled = true;
             });
 
@@ -79,6 +82,7 @@ public class PlayerStand : MonoBehaviour
             .Subscribe(_ =>
             {
                 boxCollider2d.enabled = false;
+                circleCollder2d.enabled = false;
                 hurtBox.enabled = false;
             });
 

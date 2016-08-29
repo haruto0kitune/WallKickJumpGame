@@ -20,6 +20,7 @@ public class RestartButton : MonoBehaviour
 
     void _Restart()
     {
+        ScoreManager.Instance.Reset();
         SceneManager.LoadScene("test");
         SceneManager.UnloadScene("result");
     }

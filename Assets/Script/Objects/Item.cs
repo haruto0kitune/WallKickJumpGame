@@ -25,7 +25,7 @@ public class Item : MonoBehaviour
             .Where(x => x.gameObject.tag == "Player")
             .Subscribe(_ =>
             {
-                scoreManagerComponent.score.Value++;
+                ScoreManager.score.Value++;
                 audioSource.PlayOneShot(audioSource.clip);
                 mustDestroy = true; 
             }).AddTo(this.gameObject);

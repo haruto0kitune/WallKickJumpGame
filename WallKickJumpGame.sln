@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallKickJumpGame.CSharp.Plu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallKickJumpGame.CSharp", "WallKickJumpGame.CSharp.csproj", "{FE470B3E-9E17-9901-9EE0-9A3DD5786286}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallKickJumpGame.CSharp.Editor", "WallKickJumpGame.CSharp.Editor.csproj", "{1DA60F01-DA7E-3513-1D71-FB1671AAA36A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{FE470B3E-9E17-9901-9EE0-9A3DD5786286}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE470B3E-9E17-9901-9EE0-9A3DD5786286}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE470B3E-9E17-9901-9EE0-9A3DD5786286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA60F01-DA7E-3513-1D71-FB1671AAA36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA60F01-DA7E-3513-1D71-FB1671AAA36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA60F01-DA7E-3513-1D71-FB1671AAA36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA60F01-DA7E-3513-1D71-FB1671AAA36A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

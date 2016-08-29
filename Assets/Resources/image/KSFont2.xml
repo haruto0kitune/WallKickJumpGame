@@ -1,0 +1,65 @@
+<font>
+	<info face="C:\GamDev\WallKickJumpGame\WallKickJumpGame\Assets\Resources\image\KSFont2" size="80" />
+	<common lineHeight="80" scaleW="189" scaleH="216" pages="1" />
+	<pages>
+		<page id="0" file="C:\GamDev\WallKickJumpGame\WallKickJumpGame\Assets\Resources\image\KSFont2.png" />
+	</pages>
+	<chars count="58">
+		<char id="65" x="81" y="27" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- A -->
+		<char id="66" x="162" y="54" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- B -->
+		<char id="67" x="162" y="27" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- C -->
+		<char id="68" x="162" y="0" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- D -->
+		<char id="69" x="135" y="189" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- E -->
+		<char id="70" x="135" y="162" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- F -->
+		<char id="71" x="135" y="135" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- G -->
+		<char id="72" x="135" y="108" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- H -->
+		<char id="73" x="135" y="81" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- I -->
+		<char id="74" x="135" y="54" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- J -->
+		<char id="75" x="135" y="27" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- K -->
+		<char id="76" x="135" y="0" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- L -->
+		<char id="77" x="108" y="189" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- M -->
+		<char id="78" x="108" y="162" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- N -->
+		<char id="79" x="108" y="135" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- O -->
+		<char id="80" x="108" y="108" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- P -->
+		<char id="81" x="108" y="81" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- Q -->
+		<char id="82" x="108" y="54" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- R -->
+		<char id="83" x="108" y="27" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- S -->
+		<char id="84" x="108" y="0" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- T -->
+		<char id="85" x="81" y="189" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- U -->
+		<char id="86" x="81" y="162" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- V -->
+		<char id="87" x="81" y="135" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- W -->
+		<char id="88" x="81" y="108" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- X -->
+		<char id="89" x="81" y="81" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- Y -->
+		<char id="90" x="81" y="54" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- Z -->
+		<char id="97" x="162" y="81" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- a -->
+		<char id="98" x="81" y="0" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- b -->
+		<char id="99" x="54" y="189" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- c -->
+		<char id="100" x="54" y="162" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- d -->
+		<char id="101" x="54" y="135" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- e -->
+		<char id="102" x="54" y="108" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- f -->
+		<char id="103" x="54" y="81" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- g -->
+		<char id="104" x="54" y="54" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- h -->
+		<char id="105" x="54" y="27" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- i -->
+		<char id="106" x="54" y="0" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- j -->
+		<char id="107" x="27" y="189" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- k -->
+		<char id="108" x="27" y="162" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- l -->
+		<char id="109" x="27" y="135" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- m -->
+		<char id="110" x="27" y="108" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- n -->
+		<char id="111" x="27" y="81" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- o -->
+		<char id="112" x="27" y="54" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- p -->
+		<char id="113" x="27" y="27" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- q -->
+		<char id="114" x="27" y="0" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- r -->
+		<char id="115" x="0" y="189" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- s -->
+		<char id="116" x="0" y="162" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- t -->
+		<char id="117" x="0" y="135" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- u -->
+		<char id="118" x="0" y="108" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- v -->
+		<char id="119" x="0" y="81" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- w -->
+		<char id="120" x="0" y="54" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- x -->
+		<char id="121" x="0" y="27" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- y -->
+		<char id="122" x="0" y="0" width="26" height="26" xoffset="0" yoffset="54" xadvance="27" /><!-- z -->
+		<char id="32" x="0" y="0" width="0" height="0" xoffset="0" yoffset="0" xadvance="20" /><!--   -->
+		<char id="9" x="0" y="0" width="0" height="0" xoffset="0" yoffset="0" xadvance="160" /><!-- 	 -->
+	</chars>
+	<kernings count="0">
+	</kernings>
+</font>

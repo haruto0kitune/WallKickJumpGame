@@ -38,32 +38,33 @@ public class RegisterButton : MonoBehaviour
         if(inputField.text != "")
         {
             scoreRanking["name"] = inputField.text;
-            scoreRanking["score"] = scoreManager.score.Value;
+            scoreRanking["score"] = ScoreManager.score.Value;
             scoreRanking["uuid"] = PlayerPrefs.GetString("uuid");
         }
         else
         {
             scoreRanking["name"] = "No Name";
-            scoreRanking["score"] = scoreManager.score.Value;
+            scoreRanking["score"] = ScoreManager.score.Value;
             scoreRanking["uuid"] = PlayerPrefs.GetString("uuid");
         }
 
         if(inputField.text != "")
         {
             meterRanking["name"] = inputField.text;
-            meterRanking["meter"] = scoreManager.meter.Value;
+            meterRanking["meter"] = ScoreManager.meter.Value;
             meterRanking["uuid"] = PlayerPrefs.GetString("uuid");
         }
         else
         {
             meterRanking["name"] = "No Name";
-            meterRanking["meter"] = scoreManager.meter.Value;
+            meterRanking["meter"] = ScoreManager.meter.Value;
             meterRanking["uuid"] = PlayerPrefs.GetString("uuid");
         }
 
         scoreRanking.Save();
         meterRanking.Save();
 
+        ScoreManager.Instance.Reset();
         SceneManager.LoadScene("ranking");
         SceneManager.UnloadScene("result");
     }

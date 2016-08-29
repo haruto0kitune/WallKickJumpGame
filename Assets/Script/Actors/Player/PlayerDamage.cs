@@ -2,6 +2,7 @@
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.SceneManagement;
 
 public class PlayerDamage : MonoBehaviour
 {
@@ -35,7 +36,6 @@ public class PlayerDamage : MonoBehaviour
             {
                 _rigidbody2D.velocity = Vector2.zero;
                 audioSource.PlayOneShot(audioSource.clip);
-
             });
         #endregion
     }

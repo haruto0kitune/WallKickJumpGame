@@ -54,7 +54,7 @@ public class RankingManager : MonoBehaviour
 
         double floorConstantValue = 100;
 
-        scoreRankingQuery.Find((List<NCMBObject> objList, NCMBException e) =>
+        scoreRankingQuery.FindAsync((List<NCMBObject> objList, NCMBException e) =>
         {
             if(e != null)
             {
@@ -78,7 +78,7 @@ public class RankingManager : MonoBehaviour
             }
         });
 
-        meterRankingQuery.Find((List<NCMBObject> objList, NCMBException e) =>
+        meterRankingQuery.FindAsync((List<NCMBObject> objList, NCMBException e) =>
         {
             if (e != null)
             {
@@ -104,7 +104,7 @@ public class RankingManager : MonoBehaviour
         playerScoreRanking.OrderByDescending("score");
         playerMeterRanking.OrderByDescending("meter");
 
-        playerScoreRanking.Find((List<NCMBObject> objList, NCMBException e) =>
+        playerScoreRanking.FindAsync((List<NCMBObject> objList, NCMBException e) =>
         {
             if(e != null)
             {
@@ -116,7 +116,7 @@ public class RankingManager : MonoBehaviour
             }
         });
 
-        playerMeterRanking.Find((List<NCMBObject> objList, NCMBException e) =>
+        playerMeterRanking.FindAsync((List<NCMBObject> objList, NCMBException e) =>
         {
             if(e != null)
             {

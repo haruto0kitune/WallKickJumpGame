@@ -11,6 +11,7 @@ public class PlayerFall : MonoBehaviour
     ObservableStateMachineTrigger observableStateMachineTrigger;
     PlayerState playerState;
     BoxCollider2D boxCollider2D;
+    CircleCollider2D circleCollider2D;
     [SerializeField]
     GameObject fallHurtBox;
     BoxCollider2D hurtBox;
@@ -24,6 +25,7 @@ public class PlayerFall : MonoBehaviour
         animator = player.GetComponent<Animator>();
         observableStateMachineTrigger = animator.GetBehaviour<ObservableStateMachineTrigger>();
         playerState = player.GetComponent<PlayerState>();
+        circleCollider2D = GetComponent<CircleCollider2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         hurtBox = fallHurtBox.GetComponent<BoxCollider2D>();
         buttonManagerComponent = buttonManager.GetComponent<ButtonManager>();
@@ -37,7 +39,6 @@ public class PlayerFall : MonoBehaviour
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
             .Where(x => playerState.canWallKickJump.Value)
-            //.Where(x => buttonManagerComponent.isJumpButtonDown.Value)
             .Where(x => Input.GetMouseButtonDown(0))
             .Subscribe(_ =>
             {
@@ -101,6 +102,7 @@ public class PlayerFall : MonoBehaviour
             .Subscribe(_ =>
             {
                 boxCollider2D.enabled = true;
+                circleCollider2D.enabled = true;
                 hurtBox.enabled = true;
             });
 
@@ -109,6 +111,7 @@ public class PlayerFall : MonoBehaviour
             .Subscribe(_ =>
             {
                 boxCollider2D.enabled = false;
+                circleCollider2D.enabled = false;
                 hurtBox.enabled = false;
             });
 

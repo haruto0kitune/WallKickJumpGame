@@ -26,6 +26,11 @@ public class TitleButton : MonoBehaviour
 
     public void _Title()
     {
+        if(ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.Reset();
+        }
+
         SceneManager.LoadScene("title");
         SceneManager.UnloadScene(SceneManager.GetActiveScene().name);
     }

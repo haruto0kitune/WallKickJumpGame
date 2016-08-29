@@ -25,18 +25,7 @@ public class ResultManager : MonoBehaviour
 
     void Start()
     {
-        scoreManager.score.SubscribeToText(scoreText);
-        scoreManager.meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterText);
-
-        //this.ObserveEveryValueChanged(x => SceneManager.GetActiveScene())
-        //    .Where(x => x.name == "result")
-        //    .Subscribe(_ => 
-        //    {
-        //        NCMBObject meterRanking = new NCMBObject("meterRanking");
-        //        NCMBObject scoreRanking = new NCMBObject("scoreRanking");
-
-        //        meterRanking["meter"] = scoreManager.meter.Value;
-        //        scoreRanking[""]
-        //    });
+        ScoreManager.score.SubscribeToText(scoreText);
+        ScoreManager.meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterText);
     }
 }

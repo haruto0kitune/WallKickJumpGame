@@ -11,11 +11,13 @@ public class ObstacleGenerator : MonoBehaviour
     GameObject Obstacle;
     [SerializeField]
     GameObject Obstacles;
+    [SerializeField]
+    int generateDurationFrame;
 
     void Start()
     {
         this.UpdateAsObservable()
-            .ThrottleFirstFrame(120)
+            .ThrottleFirstFrame(generateDurationFrame)
             .Subscribe(_ => 
             {
                 var coordinateX = Random.Range(-0.87f, 0.87f);

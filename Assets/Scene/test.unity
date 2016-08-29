@@ -277,9 +277,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 906afc35ef5071c43ba62c1ec6f31f43, type: 3}
     m_FontSize: 22
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 300
@@ -840,9 +840,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.07285869, y: -0.0042270124}
+  m_Offset: {x: 0.092246175, y: 0.039341867}
   serializedVersion: 2
-  m_Size: {x: 0.042757064, y: 0.25055844}
+  m_Size: {x: 0.081531964, y: 0.3376962}
 --- !u!1 &623492808
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +926,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 667086394}
   - 114: {fileID: 667086395}
+  - 114: {fileID: 667086396}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -959,6 +960,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2112398058}
   playerDamage: {fileID: 378177711}
+  game: {fileID: 1968529321}
+--- !u!114 &667086396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 667086393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711ff4e62c2f6d64590c436326a2855a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &799620963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,13 +1054,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 799620963}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1968529323}
+  m_RootOrder: 6
 --- !u!114 &799620969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,6 +1270,7 @@ MonoBehaviour:
   player: {fileID: 2112398058}
   Obstacle: {fileID: 140782, guid: 9065a884d4c3a6444bc9244fa6583695, type: 2}
   Obstacles: {fileID: 485298863}
+  generateDurationFrame: 180
 --- !u!1 &919015379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,9 +1327,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 906afc35ef5071c43ba62c1ec6f31f43, type: 3}
     m_FontSize: 22
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 300
@@ -1415,13 +1429,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 919349008}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 1968529323}
+  m_RootOrder: 7
 --- !u!1 &926589744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,9 +1932,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 906afc35ef5071c43ba62c1ec6f31f43, type: 3}
     m_FontSize: 22
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 300
@@ -3200,6 +3214,7 @@ GameObject:
   - 4: {fileID: 1859526992}
   - 61: {fileID: 1859526993}
   - 114: {fileID: 1859526994}
+  - 58: {fileID: 1859526995}
   m_Layer: 0
   m_Name: Stand
   m_TagString: Untagged
@@ -3232,9 +3247,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.0022059083, y: 0.004411608}
+  m_Offset: {x: 0.0022059083, y: 0.027043514}
   serializedVersion: 2
-  m_Size: {x: 0.09561512, y: 0.30296224}
+  m_Size: {x: 0.09561512, y: 0.25769842}
 --- !u!114 &1859526994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3248,6 +3263,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2112398058}
   standHurtBox: {fileID: 1634749417}
+--- !u!58 &1859526995
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1859526991}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.0023, y: -0.099}
+  serializedVersion: 2
+  m_Radius: 0.048644662
 --- !u!1 &1937824973
 GameObject:
   m_ObjectHideFlags: 0
@@ -3492,7 +3521,7 @@ GameObject:
   - 4: {fileID: 1968529323}
   - 114: {fileID: 1968529322}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3526,8 +3555,11 @@ Transform:
   - {fileID: 223098778}
   - {fileID: 1841987270}
   - {fileID: 810302519}
+  - {fileID: 799620968}
+  - {fileID: 919349013}
+  - {fileID: 2133840222}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
 --- !u!1001 &1970522568
 Prefab:
   m_ObjectHideFlags: 0
@@ -3734,9 +3766,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 906afc35ef5071c43ba62c1ec6f31f43, type: 3}
     m_FontSize: 22
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 300
@@ -3985,13 +4017,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2133840221}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1968529323}
+  m_RootOrder: 8
 --- !u!114 &2133840223
 MonoBehaviour:
   m_ObjectHideFlags: 0

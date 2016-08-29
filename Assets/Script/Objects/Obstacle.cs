@@ -6,6 +6,8 @@ using UniRx.Triggers;
 public class Obstacle : MonoBehaviour
 {
     Rigidbody2D _rigidbody2D;
+    [SerializeField]
+    float fallingSpeed;
 
     void Awake()
     {
@@ -20,7 +22,6 @@ public class Obstacle : MonoBehaviour
 
         // Speed Limit
         this.ObserveEveryValueChanged(x => _rigidbody2D.velocity.y)
-            .Where(x => x < -2f)
-            .Subscribe(_ => _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, -2f));
+            .Subscribe(_ => _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, -fallingSpeed));
     }
 }

@@ -12,6 +12,7 @@ public class PlayerStick : MonoBehaviour
     Rigidbody2D _rigidbody2D;
     BoxCollider2D boxCollider2D;
     PlayerState playerState;
+    Transform actors;
     [SerializeField]
     GameObject buttonManager;
     ButtonManager buttonManagerComponent;
@@ -31,6 +32,7 @@ public class PlayerStick : MonoBehaviour
         _rigidbody2D = player.GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         playerState = player.GetComponent<PlayerState>();
+        actors = player.transform.parent;
         buttonManagerComponent = buttonManager.GetComponent<ButtonManager>();
         hurtBox = stickHurtBox.GetComponent<BoxCollider2D>();
         triggerBox = stickTriggerBox.GetComponent<BoxCollider2D>();
@@ -61,6 +63,8 @@ public class PlayerStick : MonoBehaviour
                 animator.SetBool("isSticking", false);
                 animator.SetBool("isWallKickJumping", true);
                 _rigidbody2D.gravityScale = 1f;
+                playerState.isTouchingWall.Value = false;
+                //player.transform.parent = actors;
             });
         #endregion
         #region Stick->Damage
@@ -73,6 +77,8 @@ public class PlayerStick : MonoBehaviour
                 animator.SetBool("isSticking", false);
                 animator.SetBool("isDamaged", true);
                 _rigidbody2D.gravityScale = 1f;
+                playerState.isTouchingWall.Value = false;
+                //player.transform.parent = actors;
                 hasDamaged = false;
             });
         #endregion
@@ -97,11 +103,17 @@ public class PlayerStick : MonoBehaviour
 
         triggerBox.OnTriggerEnter2DAsObservable()
             .Where(x => x.gameObject.tag == "Wall")
-            .Subscribe(_ => playerState.isTouchingWall.Value = true);
+            .Do(x => Debug.Log("isTouchingWall"))
+            .Subscribe(_ =>
+            {
+                playerState.isTouchingWall.Value = true;
+                player.transform.parent = _.gameObject.transform;
+            });
 
-        triggerBox.OnTriggerExit2DAsObservable()
-            .Where(x => x.gameObject.tag == "Wall")
-            .Subscribe(_ => playerState.isTouchingWall.Value = false);
+
+        //triggerBox.OnTriggerExit2DAsObservable()
+        //    .Where(x => x.gameObject.tag == "Wall")
+        //    .Subscribe(_ => playerState.isTouchingWall.Value = false);
 
         // Collision
         this.ObserveEveryValueChanged(x => animator.GetBool("isSticking"))
