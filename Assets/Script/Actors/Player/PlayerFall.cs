@@ -15,9 +15,6 @@ public class PlayerFall : MonoBehaviour
     [SerializeField]
     GameObject fallHurtBox;
     BoxCollider2D hurtBox;
-    [SerializeField]
-    GameObject buttonManager;
-    ButtonManager buttonManagerComponent;
     bool hasDamaged;
 
     void Awake()
@@ -28,7 +25,6 @@ public class PlayerFall : MonoBehaviour
         circleCollider2D = GetComponent<CircleCollider2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         hurtBox = fallHurtBox.GetComponent<BoxCollider2D>();
-        buttonManagerComponent = buttonManager.GetComponent<ButtonManager>();
     }
 
     void Start()
@@ -38,8 +34,10 @@ public class PlayerFall : MonoBehaviour
         observableStateMachineTrigger
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
+            .Where(x => !PauseManager.isPausing)
             .Where(x => playerState.canWallKickJump.Value)
-            .Where(x => Input.GetMouseButtonDown(0))
+            //.Where(x => Input.GetMouseButtonDown(0))
+            .Where(x => playerState.isTouching)
             .Subscribe(_ =>
             {
                 animator.SetBool("isFalling", false);

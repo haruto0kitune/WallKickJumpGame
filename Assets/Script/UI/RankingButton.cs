@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class RankingButton : MonoBehaviour
 {
     AudioSource audioSource;
+    [SerializeField]
+    Text text;
 
     void Awake()
     {
@@ -13,7 +16,15 @@ public class RankingButton : MonoBehaviour
 
     void Start()
     {
-        
+        if (Application.systemLanguage == SystemLanguage.Japanese)
+        {
+            text.text = "ランキング";
+            text.fontSize = 19;
+        }
+        else
+        {
+            text.text = "Ranking";
+        }
     }
 
     public void Ranking()

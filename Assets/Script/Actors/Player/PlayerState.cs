@@ -26,6 +26,8 @@ public class PlayerState : MonoBehaviour
     public ReactiveProperty<bool> isDoubleJumping;
     public ReactiveProperty<bool> isGrounded;
 
+    public bool isTouching;
+
     void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -48,10 +50,35 @@ public class PlayerState : MonoBehaviour
         isDoubleJumping = this.ObserveEveryValueChanged(x => animator.GetBool("isDoubleJumping")).ToReactiveProperty();
         isGrounded = this.ObserveEveryValueChanged(x => (bool)Physics2D.Linecast(transform.position, groundCheck.transform.position, layerMask)).ToReactiveProperty();
 
-        isGrounded.Subscribe(_ => Debug.Log(_));
-        // Fall velocity limit
-        //this.ObserveEveryValueChanged(x => _rigidbody2D.velocity.y)
-        //    .Where(x => x < -1)
-        //    .Subscribe(_ => _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, -1f));
+        this.UpdateAsObservable()
+            .Where(x => Input.touchCount > 0)
+            .Subscribe(_ => 
+            {
+                Rect rect = new Rect(220, 420, 50, 80);
+                var touch = Input.GetTouch(0);
+                //Debug.Log("touch: " + touch.position);
+                //Debug.Log("xMin: " + rect.xMin);
+                //Debug.Log("xMax: " + rect.xMax);
+                //Debug.Log("yMin: " + rect.yMin);
+                //Debug.Log("yMax: " + rect.yMax);
+                //Debug.Log("isTouching: " + isTouching);
+
+
+                if(!(rect.xMin <= touch.position.x
+                && rect.xMax >= touch.position.x
+                && rect.yMin <= touch.position.y
+                && rect.yMax >= touch.position.y))
+                {
+                    isTouching = true;
+                }
+                else
+                {
+                    isTouching = false;
+                }
+            });
+
+        this.UpdateAsObservable()
+            .Where(x => Input.touchCount <= 0)
+            .Subscribe(_ => isTouching = false);
     }
 }

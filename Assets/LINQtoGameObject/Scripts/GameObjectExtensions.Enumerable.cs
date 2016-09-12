@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Unity.Linq
@@ -10,21 +11,10 @@ namespace Unity.Linq
         {
             foreach (var item in source)
             {
-                foreach (var item2 in item.Ancestors())
+                var e = item.Ancestors().GetEnumerator();
+                while (e.MoveNext())
                 {
-                    yield return item2;
-                }
-            }
-        }
-
-        /// <summary>Returns a filtered collection of GameObjects that contains the ancestors of every GameObject in the source collection. Only GameObjects that have a matching name are included in the collection.</summary>
-        public static IEnumerable<GameObject> Ancestors(this IEnumerable<GameObject> source, string name)
-        {
-            foreach (var item in source)
-            {
-                foreach (var item2 in item.Ancestors(name))
-                {
-                    yield return item2;
+                    yield return e.Current;
                 }
             }
         }
@@ -34,21 +24,10 @@ namespace Unity.Linq
         {
             foreach (var item in source)
             {
-                foreach (var item2 in item.AncestorsAndSelf())
+                var e = item.AncestorsAndSelf().GetEnumerator();
+                while (e.MoveNext())
                 {
-                    yield return item2;
-                }
-            }
-        }
-
-        /// <summary>Returns a collection of GameObjects that contains every GameObject in the source collection, and the ancestors of every GameObject in the source collection. Only GameObjects that have a matching name are included in the collection.</summary>
-        public static IEnumerable<GameObject> AncestorsAndSelf(this IEnumerable<GameObject> source, string name)
-        {
-            foreach (var item in source)
-            {
-                foreach (var item2 in item.AncestorsAndSelf(name))
-                {
-                    yield return item2;
+                    yield return e.Current;
                 }
             }
         }
@@ -58,21 +37,10 @@ namespace Unity.Linq
         {
             foreach (var item in source)
             {
-                foreach (var item2 in item.Descendants())
+                var e = item.Descendants().GetEnumerator();
+                while (e.MoveNext())
                 {
-                    yield return item2;
-                }
-            }
-        }
-
-        /// <summary>Returns a filtered collection of GameObjects that contains the descendant GameObjects of every GameObject in the source collection. Only GameObjects that have a matching name are included in the collection.</summary>
-        public static IEnumerable<GameObject> Descendants(this IEnumerable<GameObject> source, string name)
-        {
-            foreach (var item in source)
-            {
-                foreach (var item2 in item.Descendants(name))
-                {
-                    yield return item2;
+                    yield return e.Current;
                 }
             }
         }
@@ -82,21 +50,10 @@ namespace Unity.Linq
         {
             foreach (var item in source)
             {
-                foreach (var item2 in item.DescendantsAndSelf())
+                var e = item.DescendantsAndSelf().GetEnumerator();
+                while (e.MoveNext())
                 {
-                    yield return item2;
-                }
-            }
-        }
-
-        /// <summary>Returns a collection of GameObjects that contains every GameObject in the source collection, and the descendent GameObjects of every GameObject in the source collection. Only GameObjects that have a matching name are included in the collection.</summary>
-        public static IEnumerable<GameObject> DescendantsAndSelf(this IEnumerable<GameObject> source, string name)
-        {
-            foreach (var item in source)
-            {
-                foreach (var item2 in item.DescendantsAndSelf(name))
-                {
-                    yield return item2;
+                    yield return e.Current;
                 }
             }
         }
@@ -106,21 +63,10 @@ namespace Unity.Linq
         {
             foreach (var item in source)
             {
-                foreach (var item2 in item.Children())
+                var e = item.Children().GetEnumerator();
+                while (e.MoveNext())
                 {
-                    yield return item2;
-                }
-            }
-        }
-
-        /// <summary>Returns a filtered collection of the child GameObjects of every GameObject in the source collection. Only GameObjects that have a matching name are included in the collection.</summary>
-        public static IEnumerable<GameObject> Children(this IEnumerable<GameObject> source, string name)
-        {
-            foreach (var item in source)
-            {
-                foreach (var item2 in item.Children(name))
-                {
-                    yield return item2;
+                    yield return e.Current;
                 }
             }
         }
@@ -130,32 +76,21 @@ namespace Unity.Linq
         {
             foreach (var item in source)
             {
-                foreach (var item2 in item.ChildrenAndSelf())
+                var e = item.ChildrenAndSelf().GetEnumerator();
+                while (e.MoveNext())
                 {
-                    yield return item2;
+                    yield return e.Current;
                 }
             }
         }
 
-        /// <summary>Returns a filtered collection of GameObjects that contains every GameObject in the source collection, and the child GameObjects of every GameObject in the source collection. Only GameObjects that have a matching name are included in the collection.</summary>
-        public static IEnumerable<GameObject> ChildrenAndSelf(this IEnumerable<GameObject> source, string name)
-        {
-            foreach (var item in source)
-            {
-                foreach (var item2 in item.ChildrenAndSelf(name))
-                {
-                    yield return item2;
-                }
-            }
-        }
-
-        /// <summary>Destroy every GameObject in the source collection safety(check null, deactive/detouch before destroy).</summary>
+        /// <summary>Destroy every GameObject in the source collection safety(check null).</summary>
         /// <param name="useDestroyImmediate">If in EditMode, should be true or pass !Application.isPlaying.</param>
         public static void Destroy(this IEnumerable<GameObject> source, bool useDestroyImmediate = false)
         {
-            foreach (var item in new List<GameObject>(source)) // snapshot, avoid halloween problem http://en.wikipedia.org/wiki/Halloween_Problem
+            foreach (var item in source)
             {
-                item.Destroy(useDestroyImmediate);
+                item.Destroy(useDestroyImmediate, false); // doesn't detach.
             }
         }
 
@@ -165,12 +100,49 @@ namespace Unity.Linq
         {
             foreach (var item in source)
             {
+#if UNITY_EDITOR
+                var cache = ComponentCache<T>.Instance;
+                item.GetComponents<T>(cache);
+                if (cache.Count != 0)
+                {
+                    var component = cache[0];
+                    cache.Clear();
+                    yield return component;
+                }
+#else
+                        
                 var component = item.GetComponent<T>();
                 if (component != null)
                 {
                     yield return component;
                 }
+#endif
             }
+        }
+
+
+#if UNITY_EDITOR
+        class ComponentCache<T>
+        {
+            public static readonly List<T> Instance = new List<T>(); // for no allocate on UNITY_EDITOR
+        }
+#endif
+
+        /// <summary>Store element into the buffer, return number is size. array is automaticaly expanded.</summary>
+        public static int ToArrayNonAlloc<T>(this IEnumerable<T> source, ref T[] array)
+        {
+            var index = 0;
+            foreach (var item in source)
+            {
+                if (array.Length == index)
+                {
+                    var newSize = (index == 0) ? 4 : index * 2;
+                    Array.Resize(ref array, newSize);
+                }
+                array[index++] = item;
+            }
+
+            return index;
         }
     }
 }

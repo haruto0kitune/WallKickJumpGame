@@ -13,6 +13,7 @@ GameObject:
   - 61: {fileID: 6190262}
   - 50: {fileID: 50000014255187166}
   - 114: {fileID: 114000012361792476}
+  - 114: {fileID: 114000011338996626}
   m_Layer: 0
   m_Name: obstacle1
   m_TagString: Obstacle
@@ -133,6 +134,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &114000011338996626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6436ca854c4c98441b3a10a97467838e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012361792476
 MonoBehaviour:
   m_ObjectHideFlags: 1

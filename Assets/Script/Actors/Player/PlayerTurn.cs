@@ -10,9 +10,6 @@ namespace WallKickJumpGame.Actors.Player.Basics
         [SerializeField]
         GameObject Player;
         Animator Animator;
-        [SerializeField]
-        GameObject buttonManager;
-        ButtonManager buttonManagerComponent;
         PlayerState PlayerState;
         SpriteRenderer SpriteRenderer;
         BoxCollider2D[] BoxColliders2D;
@@ -21,7 +18,6 @@ namespace WallKickJumpGame.Actors.Player.Basics
         void Awake()
         {
             Animator = Player.GetComponent<Animator>();
-            buttonManagerComponent = buttonManager.GetComponent<ButtonManager>();
             PlayerState = Player.GetComponent<PlayerState>();
             SpriteRenderer = Player.GetComponent<SpriteRenderer>();
             BoxColliders2D = Player.GetComponentsInChildren<BoxCollider2D>();
@@ -30,10 +26,6 @@ namespace WallKickJumpGame.Actors.Player.Basics
 
         void Start()
         {
-            //this.FixedUpdateAsObservable()
-                //.Where(x => PlayerState.canTurn.Value)
-                //.Where(x => (buttonManagerComponent.isRightButtonDown.Value & !(PlayerState.isFacingRight.Value)) | (buttonManagerComponent.isLeftButtonDown.Value & PlayerState.isFacingRight.Value))
-                //.Subscribe(_ => this.Turn());
         }
 
         public void Turn()

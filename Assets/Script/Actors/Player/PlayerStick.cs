@@ -14,9 +14,6 @@ public class PlayerStick : MonoBehaviour
     PlayerState playerState;
     Transform actors;
     [SerializeField]
-    GameObject buttonManager;
-    ButtonManager buttonManagerComponent;
-    [SerializeField]
     GameObject stickHurtBox;
     BoxCollider2D hurtBox;
     [SerializeField]
@@ -33,7 +30,6 @@ public class PlayerStick : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
         playerState = player.GetComponent<PlayerState>();
         actors = player.transform.parent;
-        buttonManagerComponent = buttonManager.GetComponent<ButtonManager>();
         hurtBox = stickHurtBox.GetComponent<BoxCollider2D>();
         triggerBox = stickTriggerBox.GetComponent<BoxCollider2D>();
     }
@@ -56,8 +52,10 @@ public class PlayerStick : MonoBehaviour
         observableStateMachineTrigger
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Stick"))
+            .Where(x => !PauseManager.isPausing)
             .Where(x => playerState.canWallKickJump.Value)
-            .Where(x => Input.touchCount > 0)
+            //.Where(x => Input.touchCount > 0)
+            .Where(x => playerState.isTouching)
             .Subscribe(_ =>
             {
                 animator.SetBool("isSticking", false);
@@ -107,7 +105,7 @@ public class PlayerStick : MonoBehaviour
             .Subscribe(_ =>
             {
                 playerState.isTouchingWall.Value = true;
-                player.transform.parent = _.gameObject.transform;
+                //player.transform.parent = _.gameObject.transform;
             });
 
 

@@ -6,15 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerDamage : MonoBehaviour
 {
-    [SerializeField]
-    GameObject player;
+    public GameObject player;
     Animator animator;
     ObservableStateMachineTrigger observableStateMachineTrigger;
     AudioSource audioSource;
     Rigidbody2D _rigidbody2D;
-    [SerializeField]
-    GameObject buttonManager;
-    ButtonManager buttonManagerComponent;
 
     void Awake()
     {
@@ -22,7 +18,6 @@ public class PlayerDamage : MonoBehaviour
         observableStateMachineTrigger = animator.GetBehaviour<ObservableStateMachineTrigger>();
         audioSource = GetComponent<AudioSource>();
         _rigidbody2D = player.GetComponent<Rigidbody2D>();
-        buttonManagerComponent = buttonManager.GetComponent<ButtonManager>();
     }
 
     void Start()
@@ -32,6 +27,7 @@ public class PlayerDamage : MonoBehaviour
         observableStateMachineTrigger
             .OnStateEnterAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Damage"))
+            .Where(x => player != null)
             .Subscribe(_ =>
             {
                 _rigidbody2D.velocity = Vector2.zero;

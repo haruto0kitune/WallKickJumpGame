@@ -13,6 +13,8 @@ public class RegisterButton : MonoBehaviour
     InputField inputField;
     ScoreManager scoreManager;
     AudioSource audioSource;
+    [SerializeField]
+    Text text;
 
     void Awake()
     {
@@ -22,6 +24,16 @@ public class RegisterButton : MonoBehaviour
     void Start()
     {
         scoreManager = ScoreManager.Instance;
+
+        if (Application.systemLanguage == SystemLanguage.Japanese)
+        {
+            text.text = "スコア登録";
+            text.fontSize = 19;
+        }
+        else
+        {
+            text.text = "Register";
+        }
     }
 
     public void RegisterRanking()

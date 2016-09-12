@@ -84,8 +84,10 @@ public class PlayerWallKickJump : MonoBehaviour
         observableStateMachineTrigger
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.WallKickJump"))
+            .Where(x => !PauseManager.isPausing)
             .Where(x => playerState.canDoubleJump.Value)
             .Where(x => Input.GetMouseButtonDown(0))
+            .Where(x => playerState.isTouching)
             .Do(x => Debug.Log(Input.touchCount))
             .Subscribe(_ =>
             {

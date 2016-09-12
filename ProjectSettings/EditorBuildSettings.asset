@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/Scene/result.unity
   - enabled: 1
     path: Assets/Scene/ranking.unity
+  - enabled: 1
+    path: Assets/Scene/pause.unity

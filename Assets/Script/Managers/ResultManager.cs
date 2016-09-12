@@ -13,10 +13,6 @@ public class ResultManager : MonoBehaviour
     Text scoreText;
     [SerializeField]
     Text meterText;
-    [SerializeField]
-    Text scoreRankText;
-    [SerializeField]
-    Text meterRankText;
 
     void Awake()
     {

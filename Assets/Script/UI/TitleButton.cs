@@ -8,14 +8,26 @@ using UniRx.Triggers;
 public class TitleButton : MonoBehaviour
 {
     AudioSource audioSource;
+    [SerializeField]
+    Text text;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        
     }
 
     void Start()
     {
+        if (Application.systemLanguage == SystemLanguage.Japanese)
+        {
+            text.text = "タイトルへ戻る";
+            text.fontSize = 19;
+        }
+        else
+        {
+            text.text = "Title";
+        }
     }
 
     public void Title()

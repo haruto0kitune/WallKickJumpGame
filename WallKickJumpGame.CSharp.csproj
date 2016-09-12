@@ -156,9 +156,14 @@
     <Compile Include="Assets\Script\Generators\ItemGenerator.cs" />
     <Compile Include="Assets\Script\Generators\MapGenerator.cs" />
     <Compile Include="Assets\Script\Generators\ObstacleGenerator.cs" />
+    <Compile Include="Assets\Script\Interface\IPause.cs" />
+    <Compile Include="Assets\Script\Interface\IReset.cs" />
     <Compile Include="Assets\Script\Managers\ButtonManager.cs" />
     <Compile Include="Assets\Script\Managers\GameManager.cs" />
+    <Compile Include="Assets\Script\Managers\PauseManager.cs" />
     <Compile Include="Assets\Script\Managers\RankingManager.cs" />
+    <Compile Include="Assets\Script\Managers\ResetManager.cs" />
+    <Compile Include="Assets\Script\Managers\RestartManager.cs" />
     <Compile Include="Assets\Script\Managers\ResultManager.cs" />
     <Compile Include="Assets\Script\Managers\ScoreManager.cs" />
     <Compile Include="Assets\Script\NCMB\DontDestroy.cs" />
@@ -170,9 +175,11 @@
     <Compile Include="Assets\Script\Objects\thorn.cs" />
     <Compile Include="Assets\Script\Splash\Splash.cs" />
     <Compile Include="Assets\Script\UI\FadeManager.cs" />
+    <Compile Include="Assets\Script\UI\PauseButton.cs" />
     <Compile Include="Assets\Script\UI\RankingButton.cs" />
     <Compile Include="Assets\Script\UI\RegisterButton.cs" />
     <Compile Include="Assets\Script\UI\RestartButton.cs" />
+    <Compile Include="Assets\Script\UI\ResumeButton.cs" />
     <Compile Include="Assets\Script\UI\RevivalButton.cs" />
     <Compile Include="Assets\Script\UI\StartButton.cs" />
     <Compile Include="Assets\Script\UI\TitleButton.cs" />
@@ -181,10 +188,12 @@
     <Compile Include="Assets\Script\Utility\Debug\DebugInformation.cs" />
     <Compile Include="Assets\Script\Utility\FPSCounter.cs" />
     <Compile Include="Assets\Script\Utility\FadeController.cs" />
+    <Compile Include="Assets\Script\Utility\Pauser.cs" />
     <Compile Include="Assets\Script\Utility\PixelPerfectCamera.cs" />
     <Compile Include="Assets\Script\Utility\SetFPS.cs" />
     <Compile Include="Assets\Script\Utility\TapDetection.cs" />
     <Compile Include="Assets\Script\Utility\Utility.cs" />
+    <Compile Include="Assets\Script\Utility\tes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LINQtoGameObject\README.txt" />

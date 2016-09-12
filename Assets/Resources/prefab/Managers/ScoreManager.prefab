@@ -51,4 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163a3c279ec1ea84fb98a01a9140da91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  player: {fileID: 1000011394061006, guid: 9e0010fb27198ea40934659fdc80904f, type: 2}
+  scoreValue: {fileID: 114000013712627968, guid: bb8758140429d8542a70b61101d38356,
+    type: 2}
+  meterValue: {fileID: 114000013597999640, guid: dbd5845da7403b3499163d4f96de286a,
+    type: 2}
+  scoreText: {fileID: 114000013013248716, guid: 5e29c86531e32c54badf83b1ae4ff601,
+    type: 2}
+  meterText: {fileID: 114000011630611036, guid: 055773b477f5f1e42b024ae6acbfb4cb,
+    type: 2}

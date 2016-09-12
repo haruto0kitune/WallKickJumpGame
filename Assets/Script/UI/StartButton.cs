@@ -9,11 +9,23 @@ using NCMB;
 public class StartButton : MonoBehaviour
 {
     AudioSource audioSource;
+    [SerializeField]
+    Text text;
     //[SerializeField]
     //Text uuid;
 
     void Start()
     {
+        if(Application.systemLanguage == SystemLanguage.Japanese)
+        {
+            text.text = "ゲーム スタート";
+            text.fontSize = 19;
+        }
+        else
+        {
+            text.text = "Game Start";
+        }
+
         audioSource = GetComponent<AudioSource>();
 
         if(PlayerPrefs.GetString("uuid") == "")
