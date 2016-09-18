@@ -8,7 +8,6 @@ using NCMB;
 
 public class ResultManager : MonoBehaviour
 {
-    ScoreManager scoreManager;
     [SerializeField]
     Text scoreText;
     [SerializeField]
@@ -16,12 +15,11 @@ public class ResultManager : MonoBehaviour
 
     void Awake()
     {
-        scoreManager = ScoreManager.Instance;
     }
 
     void Start()
     {
-        ScoreManager.score.SubscribeToText(scoreText);
-        ScoreManager.meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterText);
+        ScoreManager.Instance.score.SubscribeToText(scoreText);
+        ScoreManager.Instance.meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterText);
     }
 }

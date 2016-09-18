@@ -22,16 +22,14 @@ public class PauseButton : MonoBehaviour
 
     void Start()
     {
-        //this.ObserveEveryValueChanged(x => isMerge)
-        //    .Where(x => x)
-        //    .Do(x => isMerge = false)
-        //    .DelayFrame(10)
-        //    .Subscribe(_ => SceneManager.MergeScenes(SceneManager.GetSceneByName("pause"), SceneManager.GetSceneByName("test")));
     }
 
     public void Pause()
     {
-        audioSource.PlayOneShot(audioSource.clip);
-        pauseManagerComponent.Pause();
+        if (!pauseManagerComponent.isPausing)
+        {
+            audioSource.PlayOneShot(audioSource.clip);
+            pauseManagerComponent.Pause();
+        }
     }
 }

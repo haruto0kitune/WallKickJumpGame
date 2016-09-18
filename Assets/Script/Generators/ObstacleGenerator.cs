@@ -27,7 +27,7 @@ public class ObstacleGenerator : MonoBehaviour, IPause
 
         this.UpdateAsObservable()
             .Where(x => player != null)
-            .Where(x => !PauseManager.isPausing)
+            .Where(x => !GameObject.Find("PauseManager").GetComponent<PauseManager>().isPausing)
             .Where(x => canGenerate)
             .ThrottleFirstFrame(generateDurationFrame)
             .Subscribe(_ => 

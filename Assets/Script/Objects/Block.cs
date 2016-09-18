@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using UniRx;
 using UniRx.Triggers;
+using Unity.Linq;
 
 public class Block : MonoBehaviour, IPause
 {
@@ -14,14 +16,13 @@ public class Block : MonoBehaviour, IPause
 
     void Start()
     {
-        PauseManager.pausers.Add(this);
+        foreach (var item in this.gameObject.Ancestors().Where(x => x.name == "Game").Descendants().Where(x => x.name == "PauseManager"))
+        {
+            item.GetComponent<PauseManager>().pausers.Add(this);
+        }
 
         this.OnBecameInvisibleAsObservable()
-            .Subscribe(_ =>
-            {
-                PauseManager.pausers.Remove(this);
-                Destroy(this.gameObject);
-            });
+            .Subscribe(_ => Destroy(this.gameObject));
     }
 
     public void Pause()
@@ -34,8 +35,11 @@ public class Block : MonoBehaviour, IPause
         animator.speed = 1;
     }
 
-    void OnDestroy()
+    public void OnDestroy()
     {
-        PauseManager.pausers.Remove(this);
+        if(GameObject.Find("PauseManager") != null)
+        {
+            GameObject.Find("PauseManager").GetComponent<PauseManager>().pausers.Remove(this);
+        }
     }
 }

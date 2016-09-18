@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UniRx;
+using UniRx.Triggers;
 
 public class Pauser : MonoBehaviour, IPause
 {
@@ -12,13 +14,17 @@ public class Pauser : MonoBehaviour, IPause
 
     void Awake()
     {
-        PauseManager.pausers.Add(this);
         _rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
     void Start()
     {
+        GameObject.Find("PauseManager").GetComponent<PauseManager>().pausers.Add(this);
+
+        this.OnDestroyAsObservable()
+            .Where(x => GameObject.Find("PauseManager") != null)
+            .Subscribe(_ => GameObject.Find("PauseManager").GetComponent<PauseManager>().pausers.Remove(this));
     }
 
     public void Pause()

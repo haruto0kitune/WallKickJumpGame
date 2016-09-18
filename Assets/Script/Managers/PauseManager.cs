@@ -10,12 +10,10 @@ using Unity.Linq;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject root;
-    [SerializeField]
     GameObject pauseUI;
 
-    public static List<IPause> pausers;
-    public static bool isPausing { get; private set; }
+    public List<IPause> pausers;
+    public bool isPausing { get; private set; }
 
     void Awake()
     {
@@ -24,6 +22,7 @@ public class PauseManager : MonoBehaviour
 
     void Start()
     {
+        // On pauseUI active to non-active
         this.ObserveEveryValueChanged(x => pauseUI.activeSelf)
             .Pairwise()
             .Where(x => x.Previous && !x.Current)
@@ -34,9 +33,12 @@ public class PauseManager : MonoBehaviour
     public void Pause()
     {
         isPausing = true;
-        pausers.RemoveAll(x => x == null);
         pauseUI.SetActive(true);
 
+        // null check
+        pausers.RemoveAll(x => x == null);
+
+        // pause
         foreach (var item in pausers)
         {
             if (item != null)

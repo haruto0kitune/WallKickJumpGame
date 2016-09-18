@@ -68,7 +68,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ab486037615e2a44aae37d052d17494b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -160,8 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ca5676d34b2d45409b95793347949e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 1000012786928496, guid: bae4e4156cdea9a4ca173caaa5acd692,
-    type: 2}
 --- !u!212 &212000014118430412
 SpriteRenderer:
   m_ObjectHideFlags: 1

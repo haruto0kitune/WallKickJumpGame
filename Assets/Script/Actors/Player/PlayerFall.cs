@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
@@ -34,10 +35,11 @@ public class PlayerFall : MonoBehaviour
         observableStateMachineTrigger
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
-            .Where(x => !PauseManager.isPausing)
+            .Where(x => !GameObject.Find("PauseManager").GetComponent<PauseManager>().isPausing)
             .Where(x => playerState.canWallKickJump.Value)
-            //.Where(x => Input.GetMouseButtonDown(0))
-            .Where(x => playerState.isTouching)
+            .Where(x => Input.GetMouseButtonDown(0))
+            .Where(x => EventSystem.current != null)
+            .Where(x => EventSystem.current.currentSelectedGameObject == null)
             .Subscribe(_ =>
             {
                 animator.SetBool("isFalling", false);
@@ -75,6 +77,8 @@ public class PlayerFall : MonoBehaviour
             .Where(x => x.StateInfo.IsName("Base Layer.Fall"))
             .Where(x => playerState.canDoubleJump.Value)
             .Where(x => Input.touchCount > 0)
+            .Where(x => EventSystem.current != null)
+            .Where(x => EventSystem.current.currentSelectedGameObject == null)
             .Subscribe(_ =>
             {
                 animator.SetBool("isFalling", false);

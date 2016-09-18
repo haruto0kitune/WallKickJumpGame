@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using UnityEngine.UI;
 using UniRx;
 using UniRx.Triggers;
+using Unity.Linq;
 
-public class MovingBlock : MonoBehaviour, IPause, IReset
+public class MovingBlock : MonoBehaviour, IPause
 {
-    Rigidbody2D _rigidbody2d;
     SpriteRenderer spriteRenderer;
     Animator animator;
     [SerializeField]
@@ -21,7 +22,6 @@ public class MovingBlock : MonoBehaviour, IPause, IReset
 
     void Awake()
     {
-        _rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         enumeratorStore = Move();
@@ -29,27 +29,18 @@ public class MovingBlock : MonoBehaviour, IPause, IReset
 
     void Start()
     {
-        PauseManager.pausers.Add(this);
-        ResetManager.resetComponents.Add(this);
-
-        //this.ObserveEveryValueChanged(x => coroutineStore)
-        //    .Where(x => x == null)
-        //    .Subscribe(_ => Debug.Log("coroutineStore null"));
-
-        //this.ObserveEveryValueChanged(x => coroutineStore)
-        //    .Where(x => x == null)
-        //    .Subscribe(_ => Debug.Log("coroutineStore null"));
+        foreach (var item in this.gameObject.Ancestors().Where(x => x.name == "Game").Descendants().Where(x => x.name == "PauseManager"))
+        {
+            item.GetComponent<PauseManager>().pausers.Add(this);
+        }
 
         this.FixedUpdateAsObservable()
-            .Take(1)
+            .Where(x => coroutineStore == null)
+            .ThrottleFirstFrame(1)
             .Subscribe(_ => coroutineStore = StartCoroutine(enumeratorStore));
 
         this.OnBecameInvisibleAsObservable()
-            .Subscribe(_ =>
-            {
-                PauseManager.pausers.Remove(this);
-                Destroy(this.gameObject);
-            });
+            .Subscribe(_ => Destroy(this.gameObject));
 
         this.OnTriggerEnter2DAsObservable()
             .Where(x => x.gameObject.tag == "Player")
@@ -57,7 +48,7 @@ public class MovingBlock : MonoBehaviour, IPause, IReset
 
         this.OnTriggerExit2DAsObservable()
             .Where(x => x.gameObject.tag == "Player")
-            .Do(x => Debug.Log("ExitMovingBlock"))
+            //.Do(x => Debug.Log("ExitMovingBlock"))
             .Where(x => !x.gameObject.GetComponent<PlayerState>().isSticking.Value && !x.gameObject.GetComponent<PlayerState>().isGrounded.Value)
             .Subscribe(_ => _.gameObject.transform.parent = GameObject.Find("Actors").transform);
     }
@@ -103,16 +94,11 @@ public class MovingBlock : MonoBehaviour, IPause, IReset
         animator.speed = 1;
     }
 
-    public void Reset()
+    public void OnDestroy()
     {
-        _rigidbody2d = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        enumeratorStore = Move();
-    }
-
-    void OnDestroy()
-    {
-        PauseManager.pausers.Remove(this);
+        if(GameObject.Find("PauseManager") != null)
+        {
+            GameObject.Find("PauseManager").GetComponent<PauseManager>().pausers.Remove(this);
+        }
     }
 }

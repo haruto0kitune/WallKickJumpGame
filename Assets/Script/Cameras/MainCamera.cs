@@ -14,28 +14,17 @@ public class MainCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (player == null)
-        {
-            player = GameObject.Find("Player");
-        }
-        else
+        if(player != null)
         {
             if (player.transform.position.y > transform.position.y)
             {
                 transform.position = new Vector3(0, player.transform.position.y, transform.position.z);
             }
         }
-
-        //Debug.Log("hasExited: " + hasExited);
-    }
-
-    void OnTriggerEnter2D(Collider2D collider2d)
-    {
-        hasExited = false;
-    }
-
-    void OnTriggerExit2D(Collider2D collider2d)
-    {
-        hasExited = true;
+        else
+        {
+            player = GameObject.Find("Player");
+            transform.position = Vector2.zero;
+        }
     }
 }

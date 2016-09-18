@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010303727928}
   - 114: {fileID: 114000013121135196}
-  - 114: {fileID: 114000013885170470}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,18 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751feb9911a5234438afb08a70573d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1000011394061006, guid: 9e0010fb27198ea40934659fdc80904f, type: 2}
-  playerDamage: {fileID: 1000010685086386, guid: d745454264ac1cc49afb74d92d8f80b1,
+  player: {fileID: 1000011071292748, guid: 9e0010fb27198ea40934659fdc80904f, type: 2}
+  playerDamage: {fileID: 1000010594070454, guid: d745454264ac1cc49afb74d92d8f80b1,
     type: 2}
-  game: {fileID: 1000012550330574, guid: dabb482f78f527c4bae49f9373fcca1d, type: 2}
---- !u!114 &114000013885170470
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013620116386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 711ff4e62c2f6d64590c436326a2855a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  game: {fileID: 1000012197847190, guid: dabb482f78f527c4bae49f9373fcca1d, type: 2}

@@ -1,6 +1,6 @@
 ﻿<Properties StartupItem="WallKickJumpGame.CSharp.Plugins.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\UI\PauseButton.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Actors\Player\PlayerDoubleJump.cs">
     <Files>
       <File FileName="Assets\Script\Actors\Player\PlayerState.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\Utility\TapDetection.cs" Line="1" Column="1" />
@@ -10,6 +10,7 @@
       <File FileName="Assets\Script\Managers\ScoreManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\Actors\Player\PlayerDoubleJump.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\UI\PauseButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Managers\PauseManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

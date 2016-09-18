@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
@@ -84,11 +85,13 @@ public class PlayerWallKickJump : MonoBehaviour
         observableStateMachineTrigger
             .OnStateUpdateAsObservable()
             .Where(x => x.StateInfo.IsName("Base Layer.WallKickJump"))
-            .Where(x => !PauseManager.isPausing)
+            .Where(x => !GameObject.Find("PauseManager").GetComponent<PauseManager>().isPausing)
             .Where(x => playerState.canDoubleJump.Value)
             .Where(x => Input.GetMouseButtonDown(0))
-            .Where(x => playerState.isTouching)
-            .Do(x => Debug.Log(Input.touchCount))
+            .Where(x => EventSystem.current != null)
+            .Where(x => EventSystem.current.currentSelectedGameObject == null)
+            //.Where(x => playerState.isTouching)
+            //.Do(x => Debug.Log(Input.touchCount))
             .Subscribe(_ =>
             {
                 animator.SetBool("isWallKickJumping", false);

@@ -3,7 +3,7 @@ using System.Collections;
 using UniRx;
 using UniRx.Triggers;
 
-public class MapGenerator : MonoBehaviour, IReset
+public class MapGenerator : MonoBehaviour
 {
     [SerializeField]
     GameObject[] prefabOfMapObject;
@@ -21,7 +21,6 @@ public class MapGenerator : MonoBehaviour, IReset
 
     void Start()
     {
-        ResetManager.resetComponents.Add(this);
         TriggerBox.OnTriggerEnter2DAsObservable()
             .Where(x => x.gameObject.tag == "Player")
             .Subscribe(_ =>
@@ -38,10 +37,5 @@ public class MapGenerator : MonoBehaviour, IReset
 
                 count.Value++;
             });
-    }
-
-    public void Reset()
-    {
-        count = new ReactiveProperty<int>(1);
     }
 }

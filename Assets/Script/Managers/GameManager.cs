@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using UnityEngine.SceneManagement;
 using UniRx;
 using UniRx.Triggers;
+using Unity.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +18,6 @@ public class GameManager : MonoBehaviour
     PlayerState playerState;
     public GameObject playerDamage;
     AudioSource audioSource;
-    public MainCamera mainCamera;
 
     public GameObject game;
     [System.NonSerialized]
@@ -42,89 +43,32 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
+    }
 
+    IEnumerator Start()
+    {
         animator = player.GetComponent<Animator>();
         rigidbody2d = player.GetComponent<Rigidbody2D>();
         audioSource = playerDamage.GetComponent<AudioSource>();
         playerState = player.GetComponent<PlayerState>();
-        mainCamera = Camera.main.gameObject.GetComponent<MainCamera>();
-    }
 
-    void Start()
-    {
-        this.ObserveEveryValueChanged(x => player)
-            .Where(x => x == null)
-            .Subscribe(_ => player = GameObject.Find("Player"))
-            .AddTo(player);
+        yield return null;
 
         this.UpdateAsObservable()
-            .Where(x => player != null)
-            .Where(x => playerDamage != null)
-            .Where(x => !RestartManager.isResetting)
-            .Where(x => SceneManager.GetActiveScene().name == "test")
             .Select(x => audioSource.isPlaying)
             .Pairwise()
             .Where(x => x.Previous && !x.Current)
-            .Subscribe(_ => hasFinishedSE = true)
-            .AddTo(player);
+            .Subscribe(_ => hasFinishedSE = true);
 
-        player.OnBecameInvisibleAsObservable()
-            .Where(x => player != null)
-            .Where(x => SceneManager.GetActiveScene().name == "test")
-            .Subscribe(_ => hasBecomeInvisible = true)
-            .AddTo(player);
-
-        //this.ObserveEveryValueChanged(x => (hasFinishedSE && hasBecomeInvisible && playerState.isDamaged.Value) || (hasFinishedSE && playerState.isDamaged.Value) || (!playerState.isDamaged.Value && hasBecomeInvisible))
-        this.ObserveEveryValueChanged(x => (hasFinishedSE && mainCamera.hasExited  && playerState.isDamaged.Value) || (hasFinishedSE && playerState.isDamaged.Value) || (!playerState.isDamaged.Value && mainCamera.hasExited))
-            .Where(x => player != null)
-            .Where(x => SceneManager.GetActiveScene().name == "test")
+        this.ObserveEveryValueChanged(x => (hasFinishedSE && !playerState.isVisible && playerState.isDamaged.Value) || (hasFinishedSE && playerState.isDamaged.Value) || (!playerState.isDamaged.Value && !playerState.isVisible))
             .Where(x => x)
-            //.Where(x => !RestartManager.isResetting)
-            .Do(x => Debug.Log("aheya: " + (hasFinishedSE && mainCamera.hasExited  && playerState.isDamaged.Value)))
             .Subscribe(_ => SceneManager.LoadScene("result"))
-            .AddTo(player);
-    }
-
-    public static void DeleteInstance()
-    {
-        Instance = null;
+            .AddTo(playerState);
     }
 
     public void Initialize()
     {
-        this.ObserveEveryValueChanged(x => player)
-            .Where(x => x == null)
-            .Subscribe(_ => player = GameObject.Find("Player"))
-            .AddTo(player);
-
-        this.UpdateAsObservable()
-            .Where(x => player != null)
-            .Where(x => playerDamage != null)
-            .Where(x => !RestartManager.isResetting)
-            .Where(x => SceneManager.GetActiveScene().name == "test")
-            .Select(x => audioSource.isPlaying)
-            .Pairwise()
-            .Where(x => x.Previous && !x.Current)
-            .Subscribe(_ => hasFinishedSE = true)
-            .AddTo(player);
-
-        player.OnBecameInvisibleAsObservable()
-            .Where(x => player != null)
-            .Where(x => SceneManager.GetActiveScene().name == "test")
-            .Subscribe(_ => hasBecomeInvisible = true)
-            .AddTo(player);
-
-        //this.ObserveEveryValueChanged(x => (hasFinishedSE && hasBecomeInvisible && playerState.isDamaged.Value) || (hasFinishedSE && playerState.isDamaged.Value) || (!playerState.isDamaged.Value && hasBecomeInvisible))
-        this.ObserveEveryValueChanged(x => (hasFinishedSE && mainCamera.hasExited  && playerState.isDamaged.Value) || (hasFinishedSE && playerState.isDamaged.Value) || (!playerState.isDamaged.Value && mainCamera.hasExited))
-            .Where(x => player != null)
-            .Where(x => SceneManager.GetActiveScene().name == "test")
-            .Where(x => x)
-            .Do(x => Debug.Log("isResetting: " + RestartManager.isResetting))
-            //.Where(x => !RestartManager.isResetting)
-            .Do(x => Debug.Log(hasBecomeInvisible))
-            .Subscribe(_ => SceneManager.LoadScene("result"))
-            .AddTo(player);
+        Instance = null;
     }
 }

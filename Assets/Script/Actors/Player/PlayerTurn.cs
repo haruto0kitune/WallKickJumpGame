@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 414
+using UnityEngine;
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
@@ -9,7 +10,6 @@ namespace WallKickJumpGame.Actors.Player.Basics
     {
         [SerializeField]
         GameObject Player;
-        Animator Animator;
         PlayerState PlayerState;
         SpriteRenderer SpriteRenderer;
         BoxCollider2D[] BoxColliders2D;
@@ -17,7 +17,6 @@ namespace WallKickJumpGame.Actors.Player.Basics
 
         void Awake()
         {
-            Animator = Player.GetComponent<Animator>();
             PlayerState = Player.GetComponent<PlayerState>();
             SpriteRenderer = Player.GetComponent<SpriteRenderer>();
             BoxColliders2D = Player.GetComponentsInChildren<BoxCollider2D>();

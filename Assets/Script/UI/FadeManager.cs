@@ -9,46 +9,14 @@ public class FadeManager : MonoBehaviour
     float alpha;    
     float red, green, blue;    
 
-    enum Fade
-    {
-        fadeIn,
-        fadeOut
-    }
-
-    Fade fade;
-
     void Start()
     {
-        fade = Fade.fadeIn;
         red = GetComponent<Image>().color.r;
         green = GetComponent<Image>().color.g;
         blue = GetComponent<Image>().color.b;
         alpha = 1f;
 
         StartCoroutine(FadeOn());
-    }
-
-    void Update()
-    {
-        //if (alpha == 0)
-        //{
-        //    fade = Fade.fadeOut;
-        //}
-        //else
-        //{
-        //    fade = Fade.fadeIn;
-        //}
-
-        //if(fade == Fade.fadeIn)
-        //{
-        //    GetComponent<Image>().color = new Color(red, green, blue, alpha);
-        //    alpha -= speed;
-        //}
-        //else if(fade == Fade.fadeOut)
-        //{
-        //    GetComponent<Image>().color = new Color(red, green, blue, alpha);
-        //    alpha += speed;
-        //}
     }
 
     IEnumerator FadeOn()

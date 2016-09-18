@@ -11,7 +11,6 @@ public class RegisterButton : MonoBehaviour
 {
     [SerializeField]
     InputField inputField;
-    ScoreManager scoreManager;
     AudioSource audioSource;
     [SerializeField]
     Text text;
@@ -23,8 +22,6 @@ public class RegisterButton : MonoBehaviour
 
     void Start()
     {
-        scoreManager = ScoreManager.Instance;
-
         if (Application.systemLanguage == SystemLanguage.Japanese)
         {
             text.text = "スコア登録";
@@ -50,26 +47,26 @@ public class RegisterButton : MonoBehaviour
         if(inputField.text != "")
         {
             scoreRanking["name"] = inputField.text;
-            scoreRanking["score"] = ScoreManager.score.Value;
+            scoreRanking["score"] = ScoreManager.Instance.score.Value;
             scoreRanking["uuid"] = PlayerPrefs.GetString("uuid");
         }
         else
         {
             scoreRanking["name"] = "No Name";
-            scoreRanking["score"] = ScoreManager.score.Value;
+            scoreRanking["score"] = ScoreManager.Instance.score.Value;
             scoreRanking["uuid"] = PlayerPrefs.GetString("uuid");
         }
 
         if(inputField.text != "")
         {
             meterRanking["name"] = inputField.text;
-            meterRanking["meter"] = ScoreManager.meter.Value;
+            meterRanking["meter"] = ScoreManager.Instance.meter.Value;
             meterRanking["uuid"] = PlayerPrefs.GetString("uuid");
         }
         else
         {
             meterRanking["name"] = "No Name";
-            meterRanking["meter"] = ScoreManager.meter.Value;
+            meterRanking["meter"] = ScoreManager.Instance.meter.Value;
             meterRanking["uuid"] = PlayerPrefs.GetString("uuid");
         }
 

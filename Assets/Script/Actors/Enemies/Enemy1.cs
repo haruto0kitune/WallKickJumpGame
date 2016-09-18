@@ -2,10 +2,11 @@
 using System.Collections;
 using UniRx;
 using UniRx.Triggers;
+using Unity.Linq;
+using System.Linq;
 
-public class Enemy1 : MonoBehaviour, IPause, IReset
+public class Enemy1 : MonoBehaviour, IPause
 {
-    Rigidbody2D _rigidbody2d;
     SpriteRenderer spriteRenderer;
     Animator animator;
     [SerializeField]
@@ -14,43 +15,33 @@ public class Enemy1 : MonoBehaviour, IPause, IReset
     float endPoint;
     [SerializeField]
     int maxTime;
+    int debugCount;
 
     IEnumerator enumeratorStore;
     Coroutine coroutineStore;
 
-    void OnEnable()
-    {
-        //Debug.Log("enable");
-    }
-
     void Awake()
     {
-        //Debug.Log("awake");
         enumeratorStore = Move();
-        _rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
     void Start()
     {
-        PauseManager.pausers.Add(this);
-        ResetManager.resetComponents.Add(this);
 
-        //this.ObserveEveryValueChanged(x => coroutineStore)
-        //    .Where(x => x == null)
-        //    .Subscribe(_ => Debug.Log("coroutineStore null"));
+        foreach (var item in this.gameObject.Ancestors().Where(x => x.name == "Game").Descendants().Where(x => x.name == "PauseManager"))
+        {
+            item.GetComponent<PauseManager>().pausers.Add(this);
+        }
 
         this.FixedUpdateAsObservable()
             .Where(x => coroutineStore == null)
+            .ThrottleFirstFrame(1)
             .Subscribe(_ => coroutineStore = StartCoroutine(enumeratorStore));
 
         this.OnBecameInvisibleAsObservable()
-            .Subscribe(_ =>
-            {
-                PauseManager.pausers.Remove(this);
-                Destroy(this.gameObject);
-            });
+            .Subscribe(_ => Destroy(this.gameObject));
     }
 
     void Turn()
@@ -81,19 +72,11 @@ public class Enemy1 : MonoBehaviour, IPause, IReset
             Turn();
         }
     }
-     
+
     public void Pause()
     {
         StopCoroutine(coroutineStore);
-
-        if (animator != null)
-        {
-            animator.speed = 0;
-        }
-        else
-        {
-            Debug.Log("animator is null");
-        }
+        animator.speed = 0;
     }
 
     public void Resume()
@@ -102,17 +85,11 @@ public class Enemy1 : MonoBehaviour, IPause, IReset
         animator.speed = 1;
     }
 
-    public void Reset()
+    public void OnDestroy()
     {
-        enumeratorStore = Move();
-        //Debug.Log("Reset value: " + enumeratorStore);
-        _rigidbody2d = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-    }
-
-    void OnDestroy()
-    {
-        PauseManager.pausers.Remove(this);
+        if (GameObject.Find("PauseManager") != null)
+        {
+            GameObject.Find("PauseManager").GetComponent<PauseManager>().pausers.Remove(this);
+        }
     }
 }

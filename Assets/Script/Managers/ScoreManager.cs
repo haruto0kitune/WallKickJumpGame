@@ -16,12 +16,9 @@ public class ScoreManager : MonoBehaviour
     public Text meterValue;
     public Text scoreText;
     public Text meterText;
-    public static ReactiveProperty<int> score;
-    public static ReactiveProperty<float> meter;
+    public ReactiveProperty<int> score;
+    public ReactiveProperty<float> meter;
     public static float meterStore;
-    IDisposable addMeterDisposable;
-    IDisposable scoreDisposable;
-    IDisposable meterDisposable;
 
     private static bool hasInitialized;
 
@@ -36,57 +33,43 @@ public class ScoreManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         // Initialize
-        if (!hasInitialized)
-        {
-            score = new ReactiveProperty<int>();
-            meter = new ReactiveProperty<float>();
-
-            hasInitialized = true;
-        }
+        score = new ReactiveProperty<int>();
+        meter = new ReactiveProperty<float>();
     }
 
     void Start()
     {
-        addMeterDisposable = this.UpdateAsObservable()
-                                 .Where(x => player != null)
-                                 .Where(x => player.transform.position.y > meter.Value - meterStore)
-                                 .Subscribe(_ => meter.Value = player.transform.position.y + meterStore);
+        this.UpdateAsObservable()
+            .Where(x => player != null)
+            .Where(x => player.transform.position.y > meter.Value - meterStore)
+            .Subscribe(_ => meter.Value = player.transform.position.y + meterStore);
 
-        scoreDisposable = score.SubscribeToText(scoreValue);
-        meterDisposable = meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterValue);
+        score.SubscribeToText(scoreValue);
+        meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterValue);
     }
 
     public void Reset(int score = 0, float meter = 0f)
     {
         ScoreManager.meterStore = meter;
-        ScoreManager.score = new ReactiveProperty<int>(score);
-        ScoreManager.meter = new ReactiveProperty<float>(meter);
+        this.score = new ReactiveProperty<int>(score);
+        this.meter = new ReactiveProperty<float>(meter);
     }
     
     public void Initialize()
     {
-        addMeterDisposable.Dispose();
-        scoreDisposable.Dispose();
-        meterDisposable.Dispose();
+        Instance = null; 
+        //score = new ReactiveProperty<int>();
+        //meter = new ReactiveProperty<float>();
 
-        score = new ReactiveProperty<int>();
-        meter = new ReactiveProperty<float>();
+        //this.UpdateAsObservable()
+        //    .Where(x => player != null)
+        //    .Where(x => player.transform.position.y > meter.Value - meterStore)
+        //    .Subscribe(_ => meter.Value = player.transform.position.y + meterStore);
 
-        addMeterDisposable = this.UpdateAsObservable()
-                                 .Where(x => player != null)
-                                 .Where(x => player.transform.position.y > meter.Value - meterStore)
-                                 .Subscribe(_ => meter.Value = player.transform.position.y + meterStore);
-
-        scoreDisposable = score.SubscribeToText(scoreValue);
-        meterDisposable = meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterValue);
-    }
-
-    public static void DeleteInstance()
-    {
-        Instance = null;
+        //score.SubscribeToText(scoreValue);
+        //meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterValue);
     }
 }

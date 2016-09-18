@@ -8,25 +8,11 @@ using Unity.Linq;
 
 public class ResetManager : MonoBehaviour 
 {
-    [SerializeField]
-    GameObject game;
-    List<GameObject> resets;
-    public static List<IReset> resetComponents;
+    public List<IReset> resetComponents;
 
     void Awake ()
     {
-        resets = new List<GameObject>();
         resetComponents = new List<IReset>();
-
-        foreach (var item in game.Descendants().Where(x => x.GetComponent<IReset>() != null))
-        {
-            resets.Add(item);
-        }
-
-        foreach (var item in resets)
-        {
-            resetComponents.Add(item.GetComponent<IReset>());
-        }
     }
 
     void Start () 
@@ -36,17 +22,13 @@ public class ResetManager : MonoBehaviour
 
     public void Reset()
     {
-        resets.RemoveAll(x => x == null);
-        resetComponents.RemoveAll(x => true);
-
-        foreach (var item in resets)
-        {
-            resetComponents.Add(item.GetComponent<IReset>());
-        }
+        resetComponents.RemoveAll(x => x == null);
 
         foreach (var item in resetComponents)
         {
             item.Reset();
         }
+
+        resetComponents = new List<IReset>();
     }
 }

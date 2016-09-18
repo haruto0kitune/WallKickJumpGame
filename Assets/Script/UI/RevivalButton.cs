@@ -22,11 +22,11 @@ public class RevivalButton : MonoBehaviour
 
     IEnumerator _Revival()
     {
-        ScoreManager.Instance.Reset(ScoreManager.score.Value, ScoreManager.meter.Value);
+        ScoreManager.Instance.Reset(ScoreManager.Instance.score.Value, ScoreManager.Instance.meter.Value);
         SceneManager.LoadScene("test");
         SceneManager.UnloadScene("result");
         yield return null;
 
-        GameManager.Instance.player.transform.position = new Vector2(0.97f, ScoreManager.meter.Value);
+        //GameManager.Instance.player.transform.position = new Vector2(0.97f, ScoreManager.Instance.meter.Value);
     }
 }

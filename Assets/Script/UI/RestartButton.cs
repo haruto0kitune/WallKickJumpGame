@@ -46,30 +46,7 @@ public class RestartButton : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "test")
         {
-            StartCoroutine(restartManagerComponent.Reset());
-            //Destroy(GameObject.Find("EventSystem"));
-            //GameObject.Find("PauseUI").SetActive(false);
-            //GameObject.Find("Player").transform.position = Vector2.zero;
-            //GameObject.Find("PauseManager").GetComponent<PauseManager>().Resume();
-            //GameManager.DeleteInstance();
-            //ScoreManager.DeleteInstance();
-            //Destroy(GameObject.Find("Game"));
-            //var prefab = Resources.Load<GameObject>("prefab/game");
-            //var game = Instantiate(prefab, Vector2.zero, Quaternion.identity) as GameObject;
-
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    yield return null;
-            //}
-
-            //GameObject.Find("EventSystem").SetActive(false);
-            
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    yield return null;
-            //}
-
-            //GameObject.Find("EventSystem").SetActive(true);
+            StartCoroutine(restartManagerComponent.Restart());
         }
 
         if (SceneManager.GetActiveScene().name == "result")
