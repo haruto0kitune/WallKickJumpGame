@@ -55,6 +55,7 @@ public class PlayerStand : MonoBehaviour
             {
                 animator.SetBool("isStanding", false);
                 animator.SetBool("isWallKickJumping", true);
+                playerState.isTouchingWall.Value = false;
             });
         #endregion
         #region Stand->Damage

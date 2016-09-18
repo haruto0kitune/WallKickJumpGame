@@ -48,8 +48,6 @@ public class MovingBlock : MonoBehaviour, IPause
 
         this.OnTriggerExit2DAsObservable()
             .Where(x => x.gameObject.tag == "Player")
-            //.Do(x => Debug.Log("ExitMovingBlock"))
-            .Where(x => !x.gameObject.GetComponent<PlayerState>().isSticking.Value && !x.gameObject.GetComponent<PlayerState>().isGrounded.Value)
             .Subscribe(_ => _.gameObject.transform.parent = GameObject.Find("Actors").transform);
     }
 
