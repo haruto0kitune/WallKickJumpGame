@@ -43,7 +43,7 @@ public class Item : MonoBehaviour, IPause
             .Subscribe(_ =>
             {
                 GameObject.Find("PauseManager").GetComponent<PauseManager>().pausers.Remove(this);
-                Destroy(this.gameObject);
+                Destroy(this.gameObject, 0.1f);
             });
     }
 
