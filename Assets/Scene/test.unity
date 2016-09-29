@@ -3488,7 +3488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0dd5c2f4a9451d418d1b8cb879307ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 668394590}
   Obstacle: {fileID: 140782, guid: 9065a884d4c3a6444bc9244fa6583695, type: 2}
   Obstacles: {fileID: 1693130084}
   generateDurationFrame: 180

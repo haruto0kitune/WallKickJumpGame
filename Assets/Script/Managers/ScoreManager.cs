@@ -47,6 +47,32 @@ public class ScoreManager : MonoBehaviour
             .Where(x => player.transform.position.y > meter.Value - meterStore)
             .Subscribe(_ => meter.Value = player.transform.position.y + meterStore);
 
+        // Blink scoreValue text
+        score
+            .Where(x => x % 3 == 0 && x != 0)
+            .Do(x => scoreValue.enabled = false)
+            .DelayFrame(5)
+            .Do(x => scoreValue.enabled = true)
+            .DelayFrame(5)
+            .Do(x => scoreValue.enabled = false)
+            .DelayFrame(5)
+            .Do(x => scoreValue.enabled = true)
+            .DelayFrame(5)
+            .Subscribe(_ => { });
+
+        // Blink meterValue text
+        meter
+            .Where(x => x % 3 == 0)
+            .Do(x => scoreValue.enabled = false)
+            .DelayFrame(5)
+            .Do(x => scoreValue.enabled = true)
+            .DelayFrame(5)
+            .Do(x => scoreValue.enabled = false)
+            .DelayFrame(5)
+            .Do(x => scoreValue.enabled = true)
+            .DelayFrame(5)
+            .Subscribe(_ => { });
+
         score.SubscribeToText(scoreValue);
         meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterValue);
     }
