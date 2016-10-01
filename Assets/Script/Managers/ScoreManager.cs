@@ -19,6 +19,7 @@ public class ScoreManager : MonoBehaviour
     public ReactiveProperty<int> score;
     public ReactiveProperty<float> meter;
     public static float meterStore;
+    private AudioSource audioSource;
 
     private static bool hasInitialized;
 
@@ -38,6 +39,8 @@ public class ScoreManager : MonoBehaviour
         // Initialize
         score = new ReactiveProperty<int>();
         meter = new ReactiveProperty<float>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -50,6 +53,7 @@ public class ScoreManager : MonoBehaviour
         // Blink scoreValue text
         score
             .Where(x => x % 3 == 0 && x != 0)
+            .Do(x => audioSource.PlayOneShot(audioSource.clip))
             .Do(x => scoreValue.enabled = false)
             .DelayFrame(5)
             .Do(x => scoreValue.enabled = true)
@@ -63,6 +67,7 @@ public class ScoreManager : MonoBehaviour
         // Blink meterValue text
         meter
             .Where(x => x % 3 == 0)
+            .Do(x => audioSource.PlayOneShot(audioSource.clip))
             .Do(x => scoreValue.enabled = false)
             .DelayFrame(5)
             .Do(x => scoreValue.enabled = true)
