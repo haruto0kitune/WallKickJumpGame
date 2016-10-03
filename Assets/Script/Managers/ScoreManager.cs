@@ -20,8 +20,9 @@ public class ScoreManager : MonoBehaviour
     public ReactiveProperty<float> meter;
     public static float meterStore;
     private AudioSource audioSource;
-
+    
     private static bool hasInitialized;
+    private int meterCounter = 1;
 
     void Awake()
     {
@@ -52,7 +53,7 @@ public class ScoreManager : MonoBehaviour
 
         // Blink scoreValue text
         score
-            .Where(x => x % 3 == 0 && x != 0)
+            .Where(x => x % 3 == 0 && x >= 3)
             .Do(x => audioSource.PlayOneShot(audioSource.clip))
             .Do(x => scoreValue.enabled = false)
             .DelayFrame(5)
@@ -65,18 +66,20 @@ public class ScoreManager : MonoBehaviour
             .Subscribe(_ => { });
 
         // Blink meterValue text
+        // over 5 meter
         meter
-            .Where(x => x % 3 == 0)
+            .Where(x => x >= 5 * meterCounter)
+            .ThrottleFirstFrame(60)
             .Do(x => audioSource.PlayOneShot(audioSource.clip))
-            .Do(x => scoreValue.enabled = false)
+            .Do(x => meterValue.enabled = false)
             .DelayFrame(5)
-            .Do(x => scoreValue.enabled = true)
+            .Do(x => meterValue.enabled = true)
             .DelayFrame(5)
-            .Do(x => scoreValue.enabled = false)
+            .Do(x => meterValue.enabled = false)
             .DelayFrame(5)
-            .Do(x => scoreValue.enabled = true)
+            .Do(x => meterValue.enabled = true)
             .DelayFrame(5)
-            .Subscribe(_ => { });
+            .Subscribe(_ => meterCounter++);
 
         score.SubscribeToText(scoreValue);
         meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterValue);
@@ -91,16 +94,6 @@ public class ScoreManager : MonoBehaviour
     
     public void Initialize()
     {
-        Instance = null; 
-        //score = new ReactiveProperty<int>();
-        //meter = new ReactiveProperty<float>();
-
-        //this.UpdateAsObservable()
-        //    .Where(x => player != null)
-        //    .Where(x => player.transform.position.y > meter.Value - meterStore)
-        //    .Subscribe(_ => meter.Value = player.transform.position.y + meterStore);
-
-        //score.SubscribeToText(scoreValue);
-        //meter.Select(x => Mathf.Floor(x * 100) / 100).SubscribeToText(meterValue);
+        Instance = null;
     }
 }
