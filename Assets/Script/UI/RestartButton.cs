@@ -46,7 +46,6 @@ public class RestartButton : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "test")
         {
-            //StartCoroutine(restartManagerComponent.Restart());
             SceneManager.LoadScene("test");
         }
 

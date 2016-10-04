@@ -53,8 +53,12 @@ public class ScoreManager : MonoBehaviour
 
         // Blink scoreValue text
         score
-            .Where(x => x % 3 == 0 && x >= 3)
+            .Where(x => x % 10 == 0 && x >= 10)
             .Do(x => audioSource.PlayOneShot(audioSource.clip))
+            .Do(x => scoreValue.enabled = false)
+            .DelayFrame(5)
+            .Do(x => scoreValue.enabled = true)
+            .DelayFrame(5)
             .Do(x => scoreValue.enabled = false)
             .DelayFrame(5)
             .Do(x => scoreValue.enabled = true)
@@ -66,11 +70,15 @@ public class ScoreManager : MonoBehaviour
             .Subscribe(_ => { });
 
         // Blink meterValue text
-        // over 5 meter
+        // over 10 meter
         meter
-            .Where(x => x >= 5 * meterCounter)
+            .Where(x => x >= 10 * meterCounter)
             .ThrottleFirstFrame(60)
             .Do(x => audioSource.PlayOneShot(audioSource.clip))
+            .Do(x => meterValue.enabled = false)
+            .DelayFrame(5)
+            .Do(x => meterValue.enabled = true)
+            .DelayFrame(5)
             .Do(x => meterValue.enabled = false)
             .DelayFrame(5)
             .Do(x => meterValue.enabled = true)
