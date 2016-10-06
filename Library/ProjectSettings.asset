@@ -164,8 +164,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/GamDev/WallKickJumpGame/WallKickJumpGame/user.keystore
+  AndroidKeyaliasName: walljumperluna
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 1
